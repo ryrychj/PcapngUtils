@@ -1,0 +1,350 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head>
+
+<link href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/css_002.css" rel="stylesheet" type="text/css">
+  <link href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/css.css" rel="stylesheet" type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="robots" content="index,nofollow">
+
+<title>Development/LibpcapFileFormat - The Wireshark Wiki</title>
+<script src="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/ga.js" async="" type="text/javascript"></script><script type="text/javascript" src="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/common.js"></script>
+
+<script type="text/javascript">
+<!--
+var search_hint = "Szukaj";
+//-->
+</script>
+
+
+<link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/common.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/print.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="projection" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/projection.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="screen" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/ws-wiki-screen.css">
+<link rel="stylesheet" type="text/css" charset="utf-8" media="print" href="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/ws-wiki-print.css">
+
+<!-- css only for MS IE6/IE7 browsers -->
+<!--[if lt IE 8]>
+   <link rel="stylesheet" type="text/css" charset="utf-8" media="all" href="/moin_static196/modernized/css/msie.css">
+<![endif]-->
+
+
+
+
+
+<link rel="Start" href="https://wiki.wireshark.org/FrontPage">
+<link rel="Alternate" title="Język oznaczeń wiki" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=raw">
+<link rel="Alternate" media="print" title="Podgląd wydruku" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=print">
+<link rel="Up" href="https://wiki.wireshark.org/Development">
+<link rel="Search" href="https://wiki.wireshark.org/FindPage">
+<link rel="Index" href="https://wiki.wireshark.org/TitleIndex">
+<link rel="Glossary" href="https://wiki.wireshark.org/WordIndex">
+<link rel="Help" href="https://wiki.wireshark.org/HelpOnFormatting">
+</head>
+
+<body dir="ltr" lang="pl">
+
+<div id="header">
+
+<form id="searchform" method="get" action="/Development/LibpcapFileFormat">
+<div>
+<input name="action" value="fullsearch" type="hidden">
+<input name="context" value="180" type="hidden">
+<label style="display: none;" for="searchinput">Szukaj:</label>
+<input class="disabled" id="searchinput" name="value" value="Szukaj" size="20" onfocus="searchFocus(this)" onblur="searchBlur(this)" onkeyup="searchChange(this)" onchange="searchChange(this)" alt="Search" type="text">
+<input disabled="disabled" id="titlesearch" name="titlesearch" value="Tytuły" alt="Search Titles" type="submit">
+<input disabled="disabled" id="fullsearch" name="fullsearch" value="Tekst" alt="Search Full Text" type="submit">
+</div>
+</form>
+<script type="text/javascript">
+<!--// Initialize search form
+var f = document.getElementById('searchform');
+f.getElementsByTagName('label')[0].style.display = 'none';
+var e = document.getElementById('searchinput');
+searchChange(e);
+searchBlur(e);
+//-->
+</script>
+
+<div id="logo"><a href="https://wiki.wireshark.org/FrontPage"><img class="logo" src="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/wsbadge186x57.png" alt="The Wireshark Wiki" border="0"></a></div>
+<div id="username"><a href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=login" id="login" rel="nofollow">Login</a></div>
+<h1 id="locationline">
+
+<span id="pagelocation"><span class="pagepath"><a href="https://wiki.wireshark.org/Development">Development</a></span><span class="sep">/</span><a class="backlink" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=fullsearch&amp;value=linkto%3A%22Development%2FLibpcapFileFormat%22&amp;context=180" rel="nofollow" title="Kliknij aby poszukać tytułu metodą pełnotekstową">LibpcapFileFormat</a></span>
+</h1>
+
+
+<ul id="navibar">
+<li class="wikilink"><a href="https://wiki.wireshark.org/FrontPage">FrontPage</a></li><li class="wikilink"><a href="https://wiki.wireshark.org/RecentChanges">RecentChanges</a></li><li class="wikilink"><a href="https://wiki.wireshark.org/FindPage">FindPage</a></li><li class="wikilink"><a href="https://wiki.wireshark.org/HelpContents">HelpContents</a></li><li class="current"><a href="https://wiki.wireshark.org/Development/LibpcapFileFormat">LibpcapFileFormat</a></li>
+</ul>
+
+<div id="pageline"><hr style="display:none;"></div>
+
+<ul class="editbar"><li><span class="disabled">Strona statyczna</span></li><li class="toggleCommentsButton" style="display:none;"><a href="#" class="nbcomment" onclick="toggleComments();return false;">Komentarze</a></li><li><a class="nbinfo" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=info" rel="nofollow">Info</a></li><li><a class="nbattachments" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=AttachFile" rel="nofollow">Załączniki</a></li><li>
+<form class="actionsmenu" method="GET" action="/Development/LibpcapFileFormat">
+<div>
+    
+    <select name="action" onchange="if ((this.selectedIndex != 0) &amp;&amp;
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option selected="selected" value="show">Więcej operacji:</option><option value="raw">Tekst surowy</option>
+<option value="print">Podgląd wydruku</option>
+<option value="RenderAsDocbook">Utwórz jako Docbook</option>
+<option value="refresh">Usuń pamięć podręczną</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="SpellCheck">Sprawdź pisownię</option>
+<option value="LikePages">Podobne strony</option>
+<option value="LocalSiteMap">Lokalna mapa witryny</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="RenamePage" disabled="disabled" class="disabled">Zmień nazwę strony</option>
+<option value="DeletePage" disabled="disabled" class="disabled">Usuń stronę</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Zasubskrybuj Czytelnika</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Usuń spam</option>
+<option value="show" disabled="disabled" class="disabled">Przywróć do tej wersji</option>
+<option value="PackagePages">Spakuj strony</option>
+<option value="SyncPages">Synchronizuj strony</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="Load">Wczytaj</option>
+<option value="Save">Zachowaj</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('Więcej operacji:');
+//-->
+</script>
+</form>
+</li></ul>
+
+</div>
+
+<div id="page" dir="ltr" lang="en">
+<div dir="ltr" id="content" lang="en"><span class="anchor" id="top"></span>
+<span class="anchor" id="line-1"></span><p class="line867">
+</p><h1 id="Libpcap_File_Format">Libpcap File Format</h1>
+<span class="anchor" id="line-2"></span><p class="line862">The <a href="https://wiki.wireshark.org/libpcap">libpcap</a> file format is the main capture file format used in <a class="nonexistent" href="https://wiki.wireshark.org/TcpDump/WinDump">TcpDump/WinDump</a>, Wireshark/TShark, snort, and many other networking tools. <span class="anchor" id="line-3"></span><span class="anchor" id="line-4"></span></p><p class="line867"></p><div class="table-of-contents"><p class="table-of-contents-heading">PomocSpisTreści</p><ol><li>
+<a href="#Libpcap_File_Format">Libpcap File Format</a><ol><li>
+<a href="#Overview">Overview</a></li><li>
+<a href="#File_Format">File Format</a><ol><li>
+<a href="#Global_Header">Global Header</a></li><li>
+<a href="#Record_.28Packet.29_Header">Record (Packet) Header</a></li><li>
+<a href="#Packet_Data">Packet Data</a></li></ol></li><li>
+<a href="#Libraries">Libraries</a></li><li>
+<a href="#Drawbacks">Drawbacks</a></li><li>
+<a href="#Future">Future</a></li><li>
+<a href="#Discussion">Discussion</a></li></ol></li></ol></div> <span class="anchor" id="line-5"></span><span class="anchor" id="line-6"></span><p class="line867">
+</p><h2 id="Overview">Overview</h2>
+<span class="anchor" id="line-7"></span><p class="line874">This file 
+format is a very basic format to save captured network data. As the 
+libpcap library became the "de facto" standard of network capturing on 
+UN*X, it became the "common denominator" for network capture files in 
+the open source world (there seems to be no such thing as a "common 
+denominator" in the commercial network capture world at all). <span class="anchor" id="line-8"></span><span class="anchor" id="line-9"></span></p><p class="line862">Libpcap, and the Windows port of libpcap, <a href="https://wiki.wireshark.org/WinPcap">WinPcap</a>, use the same file format. <span class="anchor" id="line-10"></span><span class="anchor" id="line-11"></span></p><p class="line862">Although it's sometimes assumed that this file format is suitable for <a href="https://wiki.wireshark.org/Ethernet">Ethernet</a> networks only, it can serve many different network types, examples can be found at the Wireshark's <a href="https://wiki.wireshark.org/CaptureSetup/NetworkMedia">Supported Capture Media</a> page; all listed types are handled by the libpcap file format. <span class="anchor" id="line-12"></span><span class="anchor" id="line-13"></span></p><p class="line862">The proposed file extension for libpcap based files is: <em>.pcap</em> <span class="anchor" id="line-14"></span><span class="anchor" id="line-15"></span></p><p class="line862">Wireshark handles all capture file I/O in the  <a class="http" href="http://anonsvn.wireshark.org/wireshark/trunk/wiretap/">wiretap</a> library.  You'll find further details about the libpcap file format in the wiretap/libpcap.c and .h files <span class="anchor" id="line-16"></span><span class="anchor" id="line-17"></span></p><p class="line867">
+</p><h2 id="File_Format">File Format</h2>
+<span class="anchor" id="line-18"></span><p class="line874">There are 
+some variants of the format "in the wild", the following will only 
+describe the commonly used format in its current version 2.4. This 
+format version hasn't changed for quite a while (at least since libpcap 
+0.4 in 1998), so it's not expected to change except for the PCAPng file 
+format mentioned below. <span class="anchor" id="line-19"></span><span class="anchor" id="line-20"></span></p><p class="line862">The
+ one official variant of the file is a version that supports 
+nanosecond-precision time stamps.  Current releases of libpcap and <a href="https://wiki.wireshark.org/WinPcap">WinPcap</a>
+ cannot read files in that format; only the version on the git trunk for
+ libpcap can read it.  Older versions of Wireshark cannot read it; 
+current versions can read it and can show the full nanosecond-resolution
+ time stamps. <span class="anchor" id="line-21"></span><span class="anchor" id="line-22"></span></p><p class="line874">The
+ file has a global header containing some global information followed by
+ zero or more records for each captured packet, looking like this: <span class="anchor" id="line-23"></span></p><div><table><tbody><tr>  <td style="background-color: #ffc0c0"><p class="line862"> Global Header </p></td>
+  <td style="background-color: #c0ffc0"><p class="line862"> Packet Header </p></td>
+  <td style="background-color: #c0ffc0"><p class="line862"> Packet Data </p></td>
+  <td style="background-color: #c0c0ff"><p class="line862"> Packet Header </p></td>
+  <td style="background-color: #c0c0ff"><p class="line862"> Packet Data </p></td>
+  <td style="background-color: #e0c0c0"><p class="line862"> Packet Header </p></td>
+  <td style="background-color: #e0c0c0"><p class="line862"> Packet Data </p></td>
+  <td><p class="line862"> ... </p></td>
+</tr>
+</tbody></table></div><span class="anchor" id="line-24"></span><span class="anchor" id="line-25"></span><p class="line862">A
+ captured packet in a capture file does not necessarily contain all the 
+data in the packet as it appeared on the network; the capture file might
+ contain at most the first <em>N</em> bytes of each packet, for some value of <em>N</em>.  The value of <em>N</em>, in such a capture, is called the "snapshot length" or "snaplen" of the capture.  <em>N</em>
+ might be a value larger than the largest possible packet, to ensure 
+that no packet in the capture is "sliced" short; a value of 65535 will 
+typically be used in this case. <span class="anchor" id="line-26"></span><span class="anchor" id="line-27"></span></p><p class="line867">
+</p><h3 id="Global_Header">Global Header</h3>
+<span class="anchor" id="line-28"></span><ul><li style="list-style-type:none">This header starts the libpcap file and will be followed by the first packet header: <span class="anchor" id="line-29"></span><span class="anchor" id="line-30"></span><span class="anchor" id="line-31"></span><span class="anchor" id="line-32"></span><span class="anchor" id="line-33"></span><span class="anchor" id="line-34"></span><span class="anchor" id="line-35"></span><span class="anchor" id="line-36"></span><span class="anchor" id="line-37"></span><span class="anchor" id="line-38"></span><pre><span class="anchor" id="line-1"></span>typedef struct pcap_hdr_s {
+<span class="anchor" id="line-2"></span>        guint32 magic_number;   /* magic number */
+<span class="anchor" id="line-3"></span>        guint16 version_major;  /* major version number */
+<span class="anchor" id="line-4"></span>        guint16 version_minor;  /* minor version number */
+<span class="anchor" id="line-5"></span>        gint32  thiszone;       /* GMT to local correction */
+<span class="anchor" id="line-6"></span>        guint32 sigfigs;        /* accuracy of timestamps */
+<span class="anchor" id="line-7"></span>        guint32 snaplen;        /* max length of captured packets, in octets */
+<span class="anchor" id="line-8"></span>        guint32 network;        /* data link type */
+<span class="anchor" id="line-9"></span>} pcap_hdr_t;</pre><span class="anchor" id="line-39"></span><ul><li>magic_number:
+ used to detect the file format itself and the byte ordering. The 
+writing application writes 0xa1b2c3d4 with it's native byte ordering 
+format into this field. The reading application will read either 
+0xa1b2c3d4 (identical) or 0xd4c3b2a1 (swapped). If the reading 
+application reads the swapped 0xd4c3b2a1 value, it knows that all the 
+following fields will have to be swapped too.  For nanosecond-resolution
+ files, the writing application writes 0xa1b23c4d, with the two nibbles 
+of the two lower-order bytes swapped, and the reading application will 
+read either 0xa1b23c4d (identical) or 0x4d3cb2a1 (swapped). <span class="anchor" id="line-40"></span></li><li>version_major, version_minor: the version number of this file format (current version is 2.4) <span class="anchor" id="line-41"></span></li><li>thiszone:
+ the correction time in seconds between GMT (UTC) and the local timezone
+ of the following packet header timestamps. Examples: If the timestamps 
+are in GMT (UTC), thiszone is simply 0. If the timestamps are in Central
+ European time (Amsterdam, Berlin, ...) which is GMT + 1:00, thiszone 
+must be -3600.  In practice, time stamps are always in GMT, so thiszone 
+is always 0. <span class="anchor" id="line-42"></span></li><li>sigfigs: in theory, the accuracy of time stamps in the capture; in practice, all tools set it to 0 <span class="anchor" id="line-43"></span></li><li><p class="line862">snaplen: the "snapshot length" for the capture (typically 65535 or even more, but might be limited by the user), see: <em>incl_len</em> vs. <em>orig_len</em> below <span class="anchor" id="line-44"></span></p></li><li><p class="line862">network: link-layer header type, specifying the type of headers at the beginning of the packet (e.g. 1 for Ethernet, see <a class="http" href="http://www.tcpdump.org/linktypes.html">tcpdump.org's link-layer header types page</a> for details); this can be various types such as 802.11, 802.11 with various radio information, PPP, Token Ring, FDDI, etc. <span class="anchor" id="line-45"></span></p></li></ul><p class="line891"><img alt="/!\" src="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/alert.png" title="/!\" height="16" width="16"> Note: if you need a new encapsulation type for libpcap files (the value for the network field), do <strong>NOT</strong> use <strong>ANY</strong> of the existing values! I.e., do <strong>NOT</strong> add a new encapsulation type by changing an existing entry; leave the existing entries alone. Instead, send mail to <a class="mailto" href="mailto:tcpdump-workers@lists.tcpdump.org">tcpdump-workers@lists.tcpdump.org<script cf-hash="f9e31" type="text/javascript">
+/* <![CDATA[ */!function(){try{var t="currentScript"in document?document.currentScript:function(){for(var t=document.getElementsByTagName("script"),e=t.length;e--;)if(t[e].getAttribute("cf-hash"))return t[e]}();if(t&&t.previousSibling){var e,r,n,i,c=t.previousSibling,a=c.getAttribute("data-cfemail");if(a){for(e="",r=parseInt(a.substr(0,2),16),n=2;a.length-n;n+=2)i=parseInt(a.substr(n,2),16)^r,e+=String.fromCharCode(i);e=document.createTextNode(e),c.parentNode.replaceChild(e,c)}}}catch(u){}}();/* ]]> */</script></a> , asking for a new link-layer header type value, and specifying the purpose of the new value. <span class="anchor" id="line-46"></span></p></li></ul><p class="line867">
+</p><h3 id="Record_.28Packet.29_Header">Record (Packet) Header</h3>
+<span class="anchor" id="line-47"></span><ul><li style="list-style-type:none">Each captured packet starts with (any byte alignment possible): <span class="anchor" id="line-48"></span><span class="anchor" id="line-49"></span><span class="anchor" id="line-50"></span><span class="anchor" id="line-51"></span><span class="anchor" id="line-52"></span><span class="anchor" id="line-53"></span><span class="anchor" id="line-54"></span><pre><span class="anchor" id="line-1-1"></span>typedef struct pcaprec_hdr_s {
+<span class="anchor" id="line-2-1"></span>        guint32 ts_sec;         /* timestamp seconds */
+<span class="anchor" id="line-3-1"></span>        guint32 ts_usec;        /* timestamp microseconds */
+<span class="anchor" id="line-4-1"></span>        guint32 incl_len;       /* number of octets of packet saved in file */
+<span class="anchor" id="line-5-1"></span>        guint32 orig_len;       /* actual length of packet */
+<span class="anchor" id="line-6-1"></span>} pcaprec_hdr_t;</pre><span class="anchor" id="line-55"></span><ul><li><p class="line862">ts_sec:
+ the date and time when this packet was captured. This value is in 
+seconds since January 1, 1970 00:00:00 GMT; this is also known as a UN*X
+ time_t. You can use the ANSI C <em>time()</em> function from <em>time.h</em>
+ to get this value, but you might use a more optimized way to get this 
+timestamp value. If this timestamp isn't based on GMT (UTC), use <em>thiszone</em> from the global header for adjustments. <span class="anchor" id="line-56"></span></p></li><li><p class="line862">ts_usec: in regular pcap files, the microseconds when this packet was captured, as an offset to <em>ts_sec</em>.   In nanosecond-resolution files, this is, instead, the nanoseconds when the packet was captured, as an offset to <em>ts_sec</em> <img alt="/!\" src="Development_LibpcapFileFormat%20-%20The%20Wireshark%20Wiki_pliki/alert.png" title="/!\" height="16" width="16">
+ Beware: this value shouldn't reach 1 second (in regular pcap files 1 
+000 000; in nanosecond-resolution files, 1 000 000 000); in this case <em>ts_sec</em> must be increased instead! <span class="anchor" id="line-57"></span></p></li><li><p class="line862">incl_len:
+ the number of bytes of packet data actually captured and saved in the 
+file. This value should never become larger than <em>orig_len</em> or the <em>snaplen</em> value of the global header. <span class="anchor" id="line-58"></span></p></li><li><p class="line862">orig_len: the length of the packet as it appeared on the network when it was captured. If <em>incl_len</em> and <em>orig_len</em> differ, the actually saved packet size was limited by <em>snaplen</em>. <span class="anchor" id="line-59"></span></p></li></ul></li></ul><p class="line867">
+</p><h3 id="Packet_Data">Packet Data</h3>
+<span class="anchor" id="line-60"></span><ul><li style="list-style-type:none"><p class="line862">The actual packet data will immediately follow the packet header as a data blob of <em>incl_len</em> bytes without a specific byte alignment. <span class="anchor" id="line-61"></span></p></li></ul><p class="line867">
+</p><h2 id="Libraries">Libraries</h2>
+<span class="anchor" id="line-62"></span><p class="line874">It shouldn't
+ be too hard to implement functions to read/write a libpcap file from 
+scratch as it's a really simple file format. However, if you want to use
+ a library for this purpose, or if you need to actually capture packets 
+from a live network, the following libraries are available to do just 
+this: <span class="anchor" id="line-63"></span><span class="anchor" id="line-64"></span></p><ul><li><p class="line891"><a class="http" href="http://www.tcpdump.org/">libpcap</a>: the origin of this file format (for UN*X based systems) <span class="anchor" id="line-65"></span></p></li><li><p class="line891"><a class="http" href="http://www.winpcap.org/">WinPcap</a>: Windows based version of libpcap <span class="anchor" id="line-66"></span></p></li></ul><p class="line874">There are wrappers for various programming languages available (but you must have one of the above libs installed): <span class="anchor" id="line-67"></span><span class="anchor" id="line-68"></span></p><ul><li><p class="line891"><a class="http" href="http://search.cpan.org/%7Ekcarnut/Net-Pcap-0.05/Pcap.pm">Net::Pcap</a>: Perl based libpcap wrapper <span class="anchor" id="line-69"></span></p></li><li><p class="line891"><a class="http" href="http://netresearch.ics.uci.edu/kfujii/jpcap/doc/links.html">Jpcap</a>: JAVA based libpcap wrapper <span class="anchor" id="line-70"></span></p></li><li><p class="line891"><a class="http" href="http://sourceforge.net/projects/pylibpcap/">python-libpcap</a>: Python based libpcap wrapper <span class="anchor" id="line-71"></span></p></li><li><p class="line891"><a class="http" href="http://www.goto.info.waseda.ac.jp/%7Efukusima/ruby/pcap-e.html">Ruby/Pcap</a>: Ruby based libpcap wrapper <span class="anchor" id="line-72"></span></p></li><li>... you may add a libpcap wrapper for your favourite programming language or using Google if it's still missing here ... <span class="anchor" id="line-73"></span></li></ul><p class="line874">Note
+ that if you write your own code, it will fail to read any capture files
+ in the "next generation libpcap" format mentioned below.  If you use 
+libpcap, however, it will, when linked (at build time or run time) with a
+ version of libpcap/WinPcap that can read those files, be able to read 
+"next generation libpcap" files that don't use features not supported by
+ the current libpcap API (such as packets from multiple interfaces with 
+different link-layer types) as well as reading the current libpcap 
+format.  As such, you should use libpcap/WinPcap if you can, rather than
+ writing your own code to read those files. <span class="anchor" id="line-74"></span><span class="anchor" id="line-75"></span></p><p class="line867">
+</p><h2 id="Drawbacks">Drawbacks</h2>
+<span class="anchor" id="line-76"></span><p class="line874">The libpcap 
+format is very simple, one of the reasons that it has gained such a wide
+ usage. Unfortunately it misses a few things which would be helpful: <span class="anchor" id="line-77"></span><span class="anchor" id="line-78"></span></p><ul><li>nanosecond time resolution <span class="anchor" id="line-79"></span></li><li>user comments: "shows connection breakdown starting at packet 1432" <span class="anchor" id="line-80"></span></li><li>interface information (like the network card manufacturer) <span class="anchor" id="line-81"></span></li><li>packet drop count (and probably other counts as well) <span class="anchor" id="line-82"></span></li><li>... <span class="anchor" id="line-83"></span></li></ul><p class="line867">
+</p><h2 id="Future">Future</h2>
+<span class="anchor" id="line-84"></span><p class="line862">It is widely
+ accepted that the libpcap file format serves its purpose but lacks some
+ useful features. There's a proposal of a next generation pcap file 
+format available at: <a class="http" href="http://www.winpcap.org/ntar/draft/PCAP-DumpFileFormat.html">http://www.winpcap.org/ntar/draft/PCAP-DumpFileFormat.html</a>.  The new format supplies many of the capabilities listed in "Drawbacks" above. <span class="anchor" id="line-85"></span><span class="anchor" id="line-86"></span></p><p class="line862">This
+ is still a proposal for quite a while now. Wireshark currently has the 
+ability to read at least some pcap-NG files, although it doesn't support
+ all of the capabilities of the files, and libpcap 1.1.0 and later have a
+ limited ability to read them as well.  The <a class="http" href="http://www.winpcap.org/ntar">NTAR - Network Trace Archival and Retrieval</a>
+ library is currently under development. When finished it can read/write
+ the records in that format, but not interpret them (like Wireshark 
+does); in the future, libpcap and Wireshark will use that library and 
+will interpret the records. <span class="anchor" id="line-87"></span><span class="anchor" id="line-88"></span></p><p class="line862">More details about the integrating of the pcapng file format into Wireshark at: <a href="https://wiki.wireshark.org/Development/PcapNg">Development/PcapNg</a> <span class="anchor" id="line-89"></span><span class="anchor" id="line-90"></span></p><p class="line867">
+</p><h2 id="Discussion">Discussion</h2>
+<span class="anchor" id="line-91"></span><p class="line874">May be, it will be better, to use the word "data block" or "block" or some other instead of "packet" <span class="anchor" id="line-92"></span><span class="anchor" id="bottom"></span></p></div><p id="pageinfo" class="info" dir="ltr" lang="pl">Development/LibpcapFileFormat  (ostatnio edytowane 2013-07-29 21:59:03 przez <span title="GuyHarris @ 172.16.3.75[172.16.3.75]"><a class="nonexistent" href="https://wiki.wireshark.org/GuyHarris" title="GuyHarris @ 172.16.3.75[172.16.3.75]">GuyHarris</a></span>)</p>
+
+<div id="pagebottom"></div>
+</div>
+
+
+<div id="footer">
+<ul class="editbar"><li><span class="disabled">Strona statyczna</span></li><li class="toggleCommentsButton" style="display:none;"><a href="#" class="nbcomment" onclick="toggleComments();return false;">Komentarze</a></li><li><a class="nbinfo" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=info" rel="nofollow">Info</a></li><li><a class="nbattachments" href="https://wiki.wireshark.org/Development/LibpcapFileFormat?action=AttachFile" rel="nofollow">Załączniki</a></li><li>
+<form class="actionsmenu" method="GET" action="/Development/LibpcapFileFormat">
+<div>
+    
+    <select name="action" onchange="if ((this.selectedIndex != 0) &amp;&amp;
+                      (this.options[this.selectedIndex].disabled == false)) {
+                this.form.submit();
+            }
+            this.selectedIndex = 0;">
+        <option selected="selected" value="show">Więcej operacji:</option><option value="raw">Tekst surowy</option>
+<option value="print">Podgląd wydruku</option>
+<option value="RenderAsDocbook">Utwórz jako Docbook</option>
+<option value="refresh">Usuń pamięć podręczną</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="SpellCheck">Sprawdź pisownię</option>
+<option value="LikePages">Podobne strony</option>
+<option value="LocalSiteMap">Lokalna mapa witryny</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="RenamePage" disabled="disabled" class="disabled">Zmień nazwę strony</option>
+<option value="DeletePage" disabled="disabled" class="disabled">Usuń stronę</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Zasubskrybuj Czytelnika</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="show" disabled="disabled" class="disabled">Usuń spam</option>
+<option value="show" disabled="disabled" class="disabled">Przywróć do tej wersji</option>
+<option value="PackagePages">Spakuj strony</option>
+<option value="SyncPages">Synchronizuj strony</option>
+<option value="show" disabled="disabled" class="disabled">------------------------</option>
+<option value="Load">Wczytaj</option>
+<option value="Save">Zachowaj</option>
+<option value="SlideShow">SlideShow</option>
+    </select>
+    
+    
+</div>
+<script type="text/javascript">
+<!--// Init menu
+actionsMenuInit('Więcej operacji:');
+//-->
+</script>
+</form>
+</li></ul>
+
+
+<table class="credits" border="0" cellpadding="0" cellspacing="0" width="98%">
+  <tbody><tr>
+    <td valign="top">
+Original content on this site is available under the GNU General Public License.<br>
+See the <a href="https://wiki.wireshark.org/License">License</a> page for details.
+    </td>
+    <td align="right" valign="top">
+Powered by <a href="http://moinmoin.wikiwikiweb.de/">MoinMoin</a>
+and <a href="http://www.python.org/">Python</a>.
+<br>
+Please don't pee in the pool.
+    </td>
+  </tr>
+</tbody></table>
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-605389-3']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+<!-- / Google Analytics -->
+
+
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+(function(){try{var s,a,i,j,r,c,l=document.getElementsByTagName("a"),t=document.createElement("textarea");for(i=0;l.length-i;i++){try{a=l[i].getAttribute("href");if(a&&a.indexOf("/cdn-cgi/l/email-protection") > -1  && (a.length > 28)){s='';j=27+ 1 + a.indexOf("/cdn-cgi/l/email-protection");if (a.length > j) {r=parseInt(a.substr(j,2),16);for(j+=2;a.length>j&&a.substr(j,1)!='X';j+=2){c=parseInt(a.substr(j,2),16)^r;s+=String.fromCharCode(c);}j+=1;s+=a.substr(j,a.length-j);}t.innerHTML=s.replace(/</g,"&lt;").replace(/>/g,"&gt;");l[i].setAttribute("href","mailto:"+t.value);}}catch(e){}}}catch(e){}})();
+/* ]]> */
+</script>
+
+
+
+</body></html>
