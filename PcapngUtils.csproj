@@ -233,7 +233,6 @@
     <Content Include="FodyWeavers.xml">
       <SubType>Designer</SubType>
     </Content>
-    <Content Include="Doc\todo.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config">
