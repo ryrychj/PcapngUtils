@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("PcapngUtils")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("C# full managed implementation Pcap/PcapNG file format")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("CorvusCorp")]
+[assembly: AssemblyCompany("Janusz Ryrych")]
 [assembly: AssemblyProduct("PcapngUtils")]
 [assembly: AssemblyCopyright("Copyright RyrychJ © 2015")]
 [assembly: AssemblyTrademark("")]
