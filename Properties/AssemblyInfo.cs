@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PcapngUtils")]
 [assembly: AssemblyDescription("C# full managed implementation Pcap/PcapNG file format")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("RyrychJ")]
+[assembly: AssemblyCompany("Janusz Ryrych")]
 [assembly: AssemblyProduct("PcapngUtils")]
-[assembly: AssemblyCopyright("Copyright RyrychJ © 2015")]
+[assembly: AssemblyCopyright("Copyright © Janusz Ryrych")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

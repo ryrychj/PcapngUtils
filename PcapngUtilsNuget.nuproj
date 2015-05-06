@@ -21,18 +21,17 @@
     <Id>PcapngUtils</Id>
     <Version>1.0.3</Version>
     <Title>PcapngUtils</Title>
-    <Authors>jryrych</Authors>
-    <Owners>jryrych</Owners>
+    <Authors>Janusz Ryrych</Authors>
+    <Owners>Janusz Ryrych</Owners>
     <Summary>C# full managed implementation Pcap/PcapNG file format</Summary>
     <Description>C# full managed implementation Pcap/PcapNG file format</Description>
     <ReleaseNotes>
     </ReleaseNotes>
     <ProjectUrl>http://github.com/ryrychj/PcapngUtil</ProjectUrl>
     <LicenseUrl>http://github.com/ryrychj/PcapngUtils/blob/master/LICENSE</LicenseUrl>
-    <Copyright>Copyright © jryrych</Copyright>
+    <Copyright>Copyright © Janusz Ryrych</Copyright>
     <Tags>PCAP,PCAPNG,Pcap,PcapNG</Tags>
-    <IconUrl>
-    </IconUrl>
+    <IconUrl>http://github.com/ryrychj/PcapngUtils/blob/master/Icon/PcapNG.png</IconUrl>
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
