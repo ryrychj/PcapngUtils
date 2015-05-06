@@ -2,5 +2,5 @@
 <Weavers>
   <EmptyConstructor />
   <ToString />
-  <Stamp />
-</Weavers>
+  <!---->Stamp /--&gt;
+<Stamp /></Weavers>

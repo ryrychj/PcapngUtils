@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("PcapngUtils")]
 [assembly: AssemblyDescription("C# full managed implementation Pcap/PcapNG file format")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Janusz Ryrych")]
+[assembly: AssemblyCompany("RyrychJ")]
 [assembly: AssemblyProduct("PcapngUtils")]
 [assembly: AssemblyCopyright("Copyright RyrychJ © 2015")]
 [assembly: AssemblyTrademark("")]
@@ -32,5 +32,7 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.1.0")]
-[assembly: AssemblyInformationalVersion("%version4% [%shorthash%] %haschanges%")]
+[assembly: AssemblyVersion("1.0.3")]
+[assembly: AssemblyFileVersionAttribute("1.0.3")]
+[assembly: AssemblyInformationalVersion("%version3% [%shorthash%] %haschanges%")]
+

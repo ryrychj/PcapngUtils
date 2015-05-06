@@ -8,8 +8,9 @@ using System.Threading.Tasks;
 namespace PcapngUtils.Extensions
 {
     [TestFixture]
-    internal static class ReverseByteOrderExtension
+    public static class ReverseByteOrderExtension
     {
+        /*
         #region nUnitTest
         [Test]
         public static void ReverseByteOrderExtension_UInt16_Test()
@@ -71,8 +72,9 @@ namespace PcapngUtils.Extensions
             Assert.AreEqual(test, 0x1032547610325476);
         }
         #endregion
+         * */
         #region Extenstion method
-        internal static UInt32 ReverseByteOrder(this UInt32 value,bool reverseByteOrder)
+        public static UInt32 ReverseByteOrder(this UInt32 value,bool reverseByteOrder)
         {
             if (!reverseByteOrder)
                 return value;
@@ -84,7 +86,7 @@ namespace PcapngUtils.Extensions
             }
         }
 
-        internal static Int32 ReverseByteOrder(this Int32 value, bool reverseByteOrder)
+        public static Int32 ReverseByteOrder(this Int32 value, bool reverseByteOrder)
         {
             if (!reverseByteOrder)
                 return value;
@@ -96,7 +98,7 @@ namespace PcapngUtils.Extensions
             }
         }
 
-        internal static UInt16 ReverseByteOrder(this UInt16 value, bool reverseByteOrder)
+        public static UInt16 ReverseByteOrder(this UInt16 value, bool reverseByteOrder)
         {
             if (!reverseByteOrder)
                 return value;
@@ -108,7 +110,7 @@ namespace PcapngUtils.Extensions
             }
         }
 
-        internal static Int16 ReverseByteOrder(this Int16 value, bool reverseByteOrder)
+        public static Int16 ReverseByteOrder(this Int16 value, bool reverseByteOrder)
         {
             if (!reverseByteOrder)                
                 return value;
@@ -120,7 +122,7 @@ namespace PcapngUtils.Extensions
             }
         }
 
-        internal static UInt64 ReverseByteOrder(this UInt64 value, bool reverseByteOrder)
+        public static UInt64 ReverseByteOrder(this UInt64 value, bool reverseByteOrder)
         {
             if (!reverseByteOrder)
                 return value;
@@ -132,7 +134,7 @@ namespace PcapngUtils.Extensions
             }
         }
 
-        internal static Int64 ReverseByteOrder(this Int64 value, bool reverseByteOrder)
+        public static Int64 ReverseByteOrder(this Int64 value, bool reverseByteOrder)
         {
             if (!reverseByteOrder)
                 return value;
