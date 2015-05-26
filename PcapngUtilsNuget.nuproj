@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>PcapngUtils</Id>
-    <Version>1.0.4</Version>
+    <Version>1.0.5</Version>
     <Title>PcapngUtils</Title>
     <Authors>Janusz Ryrych</Authors>
     <Owners>Janusz Ryrych</Owners>
@@ -27,14 +27,15 @@
     <Description>C# full managed implementation Pcap/PcapNG file format</Description>
     <ReleaseNotes>
     </ReleaseNotes>
-    <ProjectUrl>http://github.com/ryrychj/PcapngUtil</ProjectUrl>
+    <ProjectUrl>http://github.com/ryrychj/PcapngUtils</ProjectUrl>
     <LicenseUrl>http://github.com/ryrychj/PcapngUtils/blob/master/LICENSE</LicenseUrl>
     <Copyright>Copyright © Janusz Ryrych</Copyright>
-    <Tags>PCAP,PCAPNG,Pcap,PcapNG</Tags>
-    <IconUrl>http://github.com/ryrychj/PcapngUtils/blob/master/Icon/PcapNG.png</IconUrl>
+    <Tags>PCAP PCAPNG Pcap PcapNG</Tags>
+    <IconUrl>https://dl.dropboxusercontent.com/u/75969946/PcapNG.png</IconUrl>
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="AssemblyInfo.cs" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>

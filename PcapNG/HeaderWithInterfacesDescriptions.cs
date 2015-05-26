@@ -17,7 +17,7 @@ namespace PcapngUtils.PcapNG
         {
             get
             {
-                return Header;
+                return header;
             }
             set
             {
