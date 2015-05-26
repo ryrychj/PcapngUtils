@@ -35,7 +35,6 @@
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
-    <Content Include="AssemblyInfo.cs" />
     <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
