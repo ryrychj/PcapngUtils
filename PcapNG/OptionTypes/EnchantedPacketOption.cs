@@ -12,38 +12,41 @@ using System.Security.Cryptography;
 
 namespace PcapngUtils.PcapNG.OptionTypes
 {
-    [ToString]
-    [TestFixture]
+    [ToString]      
     public sealed class EnchantedPacketOption : AbstractOption
     {
         #region nUnitTest
-        [TestCase(true)]
-        [TestCase(false)]
-        [ContractVerification(false)]
-        public static void EnchantedPacketOption_ConvertToByte_Test(bool reorder)
+        [TestFixture]
+        private static class EnchantedPacketOption_Test
         {
-            EnchantedPacketOption preOption = new EnchantedPacketOption();
-            EnchantedPacketOption postOption;
-            preOption.Comment = "Test Comment";
-            preOption.DropCount = 25;
-            byte[] md5Hash = { 3, 87, 248, 225, 163, 56, 121, 102, 219, 226, 164, 68, 165, 51, 9, 177, 59 };
-            preOption.Hash = new HashBlock(md5Hash);
-            preOption.PacketFlag = new PacketBlockFlags(0xFF000000);
-            byte[] preOptionByte = preOption.ConvertToByte(reorder, null);
-            using(MemoryStream stream = new MemoryStream(preOptionByte))
+            [TestCase(true)]
+            [TestCase(false)]
+            [ContractVerification(false)]
+            public static void EnchantedPacketOption_ConvertToByte_Test(bool reorder)
             {
-                using (BinaryReader binaryReader = new BinaryReader(stream))
+                EnchantedPacketOption preOption = new EnchantedPacketOption();
+                EnchantedPacketOption postOption;
+                preOption.Comment = "Test Comment";
+                preOption.DropCount = 25;
+                byte[] md5Hash = { 3, 87, 248, 225, 163, 56, 121, 102, 219, 226, 164, 68, 165, 51, 9, 177, 59 };
+                preOption.Hash = new HashBlock(md5Hash);
+                preOption.PacketFlag = new PacketBlockFlags(0xFF000000);
+                byte[] preOptionByte = preOption.ConvertToByte(reorder, null);
+                using (MemoryStream stream = new MemoryStream(preOptionByte))
                 {
-                    postOption = EnchantedPacketOption.Parse(binaryReader, reorder, null);     
+                    using (BinaryReader binaryReader = new BinaryReader(stream))
+                    {
+                        postOption = EnchantedPacketOption.Parse(binaryReader, reorder, null);
+                    }
                 }
-            }
 
-            Assert.IsNotNull(postOption);
-            Assert.AreEqual(preOption.Comment,postOption.Comment);
-            Assert.AreEqual(preOption.DropCount,postOption.DropCount);
-            Assert.AreEqual(preOption.Hash.Algorithm, postOption.Hash.Algorithm);
-            Assert.AreEqual(preOption.Hash.Value,postOption.Hash.Value);
-            Assert.AreEqual(preOption.PacketFlag.Flag, postOption.PacketFlag.Flag);
+                Assert.IsNotNull(postOption);
+                Assert.AreEqual(preOption.Comment, postOption.Comment);
+                Assert.AreEqual(preOption.DropCount, postOption.DropCount);
+                Assert.AreEqual(preOption.Hash.Algorithm, postOption.Hash.Algorithm);
+                Assert.AreEqual(preOption.Hash.Value, postOption.Hash.Value);
+                Assert.AreEqual(preOption.PacketFlag.Flag, postOption.PacketFlag.Flag);
+            }
         }
         #endregion
 

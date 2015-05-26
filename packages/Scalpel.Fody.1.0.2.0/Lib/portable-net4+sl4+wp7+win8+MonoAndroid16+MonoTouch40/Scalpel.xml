@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Scalpel</name>
+    </assembly>
+    <members>
+        <member name="T:Scalpel.RemoveAttribute">
+            <summary>
+            Also remove this type.
+            </summary>
+        </member>
+    </members>
+</doc>

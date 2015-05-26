@@ -8,36 +8,38 @@ using System.Threading.Tasks;
 
 namespace PcapngUtils.PcapNG.CommonTypes
 {
-    [ToString]
-    [TestFixture]
+    [ToString]     
     public sealed class HashBlock
     {
         #region nUnitTest
-        [Test]  
-        public static void HashBlock_InvalidEnum_Test()
+        [TestFixture]
+        private static class HashBlock_Test
         {
-            string md5Hash = "f59b7efafd800e27b47a488d30615c73";
-            byte[] utf8Hash = System.Text.Encoding.UTF8.GetBytes(md5Hash);
-            byte[] test = { 5 };
-            test = test.Concat(utf8Hash).ToArray();
+            [Test]
+            public static void HashBlock_InvalidEnum_Test()
+            {
+                string md5Hash = "f59b7efafd800e27b47a488d30615c73";
+                byte[] utf8Hash = System.Text.Encoding.UTF8.GetBytes(md5Hash);
+                byte[] test = { 5 };
+                test = test.Concat(utf8Hash).ToArray();
 
-            HashBlock hashBlock = new HashBlock(test);
-            Assert.AreEqual(hashBlock.Algorithm, HashAlgorithm.Invalid);
+                HashBlock hashBlock = new HashBlock(test);
+                Assert.AreEqual(hashBlock.Algorithm, HashAlgorithm.Invalid);
+            }
+
+            [Test]
+            public static void HashBlock_Md5Test_Test()
+            {
+                string md5Hash = "f59b7efafd800e27b47a488d30615c73";
+                byte[] utf8Hash = System.Text.Encoding.UTF8.GetBytes(md5Hash);
+                byte[] test = { (byte)HashAlgorithm.Md5 };
+                test = test.Concat(utf8Hash).ToArray();
+
+                HashBlock hashBlock = new HashBlock(test);
+                Assert.AreEqual(hashBlock.Algorithm, HashAlgorithm.Md5);
+                Assert.AreEqual(hashBlock.StringValue, md5Hash);
+            }
         }
-
-        [Test]  
-        public static void HashBlock_Md5Test_Test()
-        {
-            string md5Hash = "f59b7efafd800e27b47a488d30615c73";
-            byte[] utf8Hash = System.Text.Encoding.UTF8.GetBytes(md5Hash);
-            byte[] test  = { (byte)HashAlgorithm.Md5 };
-            test = test.Concat(utf8Hash).ToArray();
-
-            HashBlock hashBlock = new HashBlock(test);
-            Assert.AreEqual(hashBlock.Algorithm, HashAlgorithm.Md5);
-            Assert.AreEqual(hashBlock.StringValue, md5Hash);
-        }       
-
         #endregion
 
         #region enum

@@ -12,32 +12,35 @@ using PcapngUtils.Common;
 
 namespace PcapngUtils.Pcap
 {
-    [ToString]
-    [TestFixture]
+    [ToString]    
     public sealed class SectionHeader
     {
         #region nUnitTest
-        [Test]
-        public static void SectionHeader_ConvertToByte_Test()
+        [TestFixture]
+        public static class SectionHeader_Test
         {
-            SectionHeader pre = SectionHeader.CreateEmptyHeader(false, false);
-            using (MemoryStream stream = new MemoryStream(pre.ConvertToByte()) )
+            [Test]
+            public static void SectionHeader_ConvertToByte_Test()
             {
-                using (BinaryReader br = new BinaryReader(stream))
+                SectionHeader pre = SectionHeader.CreateEmptyHeader(false, false);
+                using (MemoryStream stream = new MemoryStream(pre.ConvertToByte()))
                 {
-                    SectionHeader post =SectionHeader.Parse(br);
-                    Assert.AreEqual(pre.MagicNumber, post.MagicNumber);
-                    Assert.AreEqual(pre.ReverseByteOrder, post.ReverseByteOrder);
-                    Assert.AreEqual(pre.MajorVersion, post.MajorVersion);
-                    Assert.AreEqual(pre.MinorVersion, post.MinorVersion);
-                    Assert.AreEqual(pre.LinkType, post.LinkType);
-                    Assert.AreEqual(pre.MaximumCaptureLength, post.MaximumCaptureLength);
-                    Assert.AreEqual(pre.NanoSecondResolution, post.NanoSecondResolution);
-                    Assert.AreEqual(pre.SignificantFigures, post.SignificantFigures);
-                    Assert.AreEqual(pre.TimezoneOffset, post.TimezoneOffset);                     
+                    using (BinaryReader br = new BinaryReader(stream))
+                    {
+                        SectionHeader post = SectionHeader.Parse(br);
+                        Assert.AreEqual(pre.MagicNumber, post.MagicNumber);
+                        Assert.AreEqual(pre.ReverseByteOrder, post.ReverseByteOrder);
+                        Assert.AreEqual(pre.MajorVersion, post.MajorVersion);
+                        Assert.AreEqual(pre.MinorVersion, post.MinorVersion);
+                        Assert.AreEqual(pre.LinkType, post.LinkType);
+                        Assert.AreEqual(pre.MaximumCaptureLength, post.MaximumCaptureLength);
+                        Assert.AreEqual(pre.NanoSecondResolution, post.NanoSecondResolution);
+                        Assert.AreEqual(pre.SignificantFigures, post.SignificantFigures);
+                        Assert.AreEqual(pre.TimezoneOffset, post.TimezoneOffset);
+                    }
                 }
+
             }
-            
         }
         #endregion
 

@@ -92,43 +92,43 @@ namespace PcapngUtils.PcapNG.OptionTypes
 
     }
 
-    [ToString]
-    [TestFixture]
+    [ToString]     
     public sealed class NameResolutionRecord : AbstractOption, IList<NameResolutionRecordEntry>
     {
         #region nUnitTest
-        [TestCase(true)]
-        [TestCase(false)]
-        [ContractVerification(false)]
-        public static void NameResolutionRecord_ConvertToByte_Test(bool reorder)
+        [TestFixture]
+        private static class NameResolutionRecord_Test
         {
-            NameResolutionRecord postNameResolution;
-            NameResolutionRecord preNameResolution = new NameResolutionRecord(new List<NameResolutionRecordEntry>());
-            preNameResolution.Add(new NameResolutionRecordEntry( new IPAddress(new byte []  { 127, 0, 0, 1}),"localhost"));
-            preNameResolution.Add(new NameResolutionRecordEntry(new IPAddress(new byte[] { 0x20, 0x01, 0x0d, 0x0db, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x14, 0x28, 0x57, 0xab }), "test addr"));
-           
-             byte[] preNameResolutionRecord = preNameResolution.ConvertToByte(reorder, null);
+            [TestCase(true)]
+            [TestCase(false)]
+            [ContractVerification(false)]
+            public static void NameResolutionRecord_ConvertToByte_Test(bool reorder)
+            {
+                NameResolutionRecord postNameResolution;
+                NameResolutionRecord preNameResolution = new NameResolutionRecord(new List<NameResolutionRecordEntry>());
+                preNameResolution.Add(new NameResolutionRecordEntry(new IPAddress(new byte[] { 127, 0, 0, 1 }), "localhost"));
+                preNameResolution.Add(new NameResolutionRecordEntry(new IPAddress(new byte[] { 0x20, 0x01, 0x0d, 0x0db, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x0, 0x14, 0x28, 0x57, 0xab }), "test addr"));
 
-             using (MemoryStream stream = new MemoryStream(preNameResolutionRecord))
-             {
-                 using (BinaryReader binaryReader = new BinaryReader(stream))
-                 {
-                     postNameResolution = NameResolutionRecord.Parse(binaryReader, reorder, null);
-                 }
-             }
+                byte[] preNameResolutionRecord = preNameResolution.ConvertToByte(reorder, null);
 
-             Assert.IsNotNull(postNameResolution);
-             Assert.AreEqual(preNameResolution.Count, postNameResolution.Count);
-             for (int i = 0; i < preNameResolution.Count; i++)
-             {
-                 Assert.AreEqual(preNameResolution[i].IpAddr, postNameResolution[i].IpAddr);
-                 Assert.AreEqual(preNameResolution[i].Description, postNameResolution[i].Description);
-             }
-           
+                using (MemoryStream stream = new MemoryStream(preNameResolutionRecord))
+                {
+                    using (BinaryReader binaryReader = new BinaryReader(stream))
+                    {
+                        postNameResolution = NameResolutionRecord.Parse(binaryReader, reorder, null);
+                    }
+                }
 
+                Assert.IsNotNull(postNameResolution);
+                Assert.AreEqual(preNameResolution.Count, postNameResolution.Count);
+                for (int i = 0; i < preNameResolution.Count; i++)
+                {
+                    Assert.AreEqual(preNameResolution[i].IpAddr, postNameResolution[i].IpAddr);
+                    Assert.AreEqual(preNameResolution[i].Description, postNameResolution[i].Description);
+                }
+            }
         }
-        #endregion
-       
+        #endregion        
 
         #region fields & properies
         private readonly List<NameResolutionRecordEntry> listRecords = new List<NameResolutionRecordEntry>();
