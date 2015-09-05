@@ -17,7 +17,92 @@ I added the implementation of both formats in a fully managed C #.
 
 <h2>Usage</h2>
 <h4>Open Pcap file</h4>
+<pre><code>
+public void OpenPcapFile(string filename,CancellationToken token)
+{
+  using (var reader = new PcapReader(filename))
+  {
+    reader.OnReadPacketEvent += reader_OnReadPacketEvent;
+    reader.ReadPackets(token);
+    reader.OnReadPacketEvent -= reader_OnReadPacketEvent;
+  }
+}  
+
+void reader_OnReadPacketEvent(object context, IPacket packet)
+{
+  Console.WriteLine(string.Format("Packet received {0}.{1}",packet.Seconds, packet.Microseconds ));
+}
+</code></pre>
 <h4>Open PcapNG file</h4>
+<pre><code>
+public void OpenPcapNGFile(string filename,bool swapBytes,CancellationToken token)
+{
+  using (var reader = new PcapNGReader("test.pcap",swapBytes))
+  {
+    reader.OnReadPacketEvent += reader_OnReadPacketEvent;
+    reader.ReadPackets(token);
+    reader.OnReadPacketEvent -= reader_OnReadPacketEvent;
+  }
+}  
+
+void reader_OnReadPacketEvent(object context, IPacket packet)
+{
+  Console.WriteLine(string.Format("Packet received {0}.{1}",packet.Seconds, packet.Microseconds ));
+}
+</code></pre>
 <h4>Open Pcap/PcapNG file</h4>
-<h4>Save to Pcap file</h4>
-<h4>Save to PcapNG file</h4>
+Better solutions, library can recognize the file format,
+<pre><code>
+public void OpenPcapORPcapNFFile(string filename,CancellationToken token)
+{
+  using (var reader = IReaderFactory.GetReader(filename))
+  {
+    reader.OnReadPacketEvent += reader_OnReadPacketEvent;
+    reader.ReadPackets(token);
+    reader.OnReadPacketEvent -= reader_OnReadPacketEvent;
+  }
+}  
+
+void reader_OnReadPacketEvent(object context, IPacket packet)
+{
+  Console.WriteLine(string.Format("Packet received {0}.{1}",packet.Seconds, packet.Microseconds ));
+}
+</code></pre>
+<h4>Read packages and save to Pcap file</h4>
+<pre><code>
+public void CloneFile(string inputFileName, string outputFileName, CancellationToken token)
+{
+  using (var reader = IReaderFactory.GetReader(inputFileName))
+  {
+    using (var writer = new PcapWriter(outputFileName))
+    {
+      CommonDelegates.ReadPacketEventDelegate handler = (obj, packet) =>
+      {
+        writer.WritePacket(packet);
+      };
+      reader.OnReadPacketEvent += handler;
+      reader.ReadPackets(token);
+      reader.OnReadPacketEvent -= handler; 
+    }                
+  }
+}
+</code></pre>
+<h4>Read packages and save to PcapNG file</h4>
+<pre><code>
+public void CloneFile(string inputFileName, string outputFileName, CancellationToken token)
+{
+  using (var reader = IReaderFactory.GetReader(inputFileName))
+  {
+    using (var writer = new PcapNGWriter(outputFileName))
+    {
+      CommonDelegates.ReadPacketEventDelegate handler = (obj, packet) =>
+      {
+        writer.WritePacket(packet);
+      };
+      reader.OnReadPacketEvent += handler;
+      reader.ReadPackets(token);
+      reader.OnReadPacketEvent -= handler; 
+    }                
+  }
+}
+</code></pre>
