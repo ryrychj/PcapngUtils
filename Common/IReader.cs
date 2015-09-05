@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace PcapngUtils.Common
 {
-    public interface IReader 
+    public interface IReader : IDisposable 
     {
         /// <summary>
         /// Close stream, dispose members

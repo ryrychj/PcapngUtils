@@ -1,7 +1,7 @@
-<img src="https://dl.dropboxusercontent.com/u/75969946/PcapNG_short.png" alt="Icon"  style="max-width:100%;">
+<img src="https://dl.dropboxusercontent.com/u/75969946/Download/PcapNGUtils/PcapNG_short.png" alt="Icon"  style="max-width:100%;">
 <h1>PcapngUtils</h1>
 C# full managed implementation Pcap/PcapNG file format
-<h2><a id="user-content-the-nuget-package--" class="anchor" href="#the-nuget-package--" aria-hidden="true"><span class="octicon octicon-link"></span></a>The nuget package  <a href="https://www.nuget.org/packages/PcapngUtils/"><img src="https://dl.dropboxusercontent.com/u/75969946/v1.0.6.svg" alt="NuGet Status"  style="max-width:100%;"></a></h2>
+<h2><a id="user-content-the-nuget-package--" class="anchor" href="#the-nuget-package--" aria-hidden="true"><span class="octicon octicon-link"></span></a>The nuget package  <a href="https://www.nuget.org/packages/PcapngUtils/"><img src="https://dl.dropboxusercontent.com/u/75969946/Download/PcapNGUtils/v1.0.7.svg" alt="NuGet Status"  style="max-width:100%;"></a></h2>
 
 <pre><code>PM&gt; Install-Package PcapngUtils 
 </code></pre>

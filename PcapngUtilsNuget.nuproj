@@ -19,7 +19,7 @@
   <Import Project="$(NuProjPath)\NuProj.props" Condition="Exists('$(NuProjPath)\NuProj.props')" />
   <PropertyGroup Label="Configuration">
     <Id>PcapngUtils</Id>
-    <Version>1.0.6</Version>
+    <Version>1.0.7</Version>
     <Title>PcapngUtils</Title>
     <Authors>Janusz Ryrych</Authors>
     <Owners>Janusz Ryrych</Owners>
@@ -31,7 +31,7 @@
     <LicenseUrl>http://github.com/ryrychj/PcapngUtils/blob/master/LICENSE</LicenseUrl>
     <Copyright>Copyright © Janusz Ryrych</Copyright>
     <Tags>PCAP PCAPNG Pcap PcapNG</Tags>
-    <IconUrl>https://dl.dropboxusercontent.com/u/75969946/PcapNG.png</IconUrl>
+    <IconUrl>https://dl.dropboxusercontent.com/u/75969946/Download/PcapNGUtils/PcapNG.png</IconUrl>
     <EmbedSourceFiles>true</EmbedSourceFiles>
   </PropertyGroup>
   <ItemGroup>
