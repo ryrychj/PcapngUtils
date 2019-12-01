@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>Haukcode.PcapngUtils</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <Version>1.0.8</Version>
+    <Description>C# full managed implementation Pcap/PcapNG file format</Description>
+    <Company>Janusz Ryrych</Company>
+    <Authors>Janusz Ryrych, Hakan Lindestaf</Authors>
+    <Copyright>Copyright © Janusz Ryrych</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/HakanL/PcapngUtils</RepositoryUrl>
+    <RepositoryType>GIT</RepositoryType>
+    <PackageReleaseNotes>1.0.8 Converted to .NET Standard 2.0 and removed NUnit dependencies</PackageReleaseNotes>
+    <PackageId>Haukcode.PcapngUtils</PackageId>
+  </PropertyGroup>
+
+</Project>

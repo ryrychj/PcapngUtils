@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.87
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PcapngUtils", "PcapngUtils\PcapngUtils.csproj", "{820412DF-CB18-49C4-A1B3-5F37AF5732D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PcapngUtils.Tests", "PcapngUtils.Tests\PcapngUtils.Tests.csproj", "{27016F2F-8B46-45C3-A5AD-F263CABD128B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug_CodeContract|Any CPU = Debug_CodeContract|Any CPU
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Debug_CodeContract|Any CPU.ActiveCfg = Debug|Any CPU
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Debug_CodeContract|Any CPU.Build.0 = Debug|Any CPU
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{820412DF-CB18-49C4-A1B3-5F37AF5732D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Debug_CodeContract|Any CPU.ActiveCfg = Debug|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Debug_CodeContract|Any CPU.Build.0 = Debug|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27016F2F-8B46-45C3-A5AD-F263CABD128B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A1208AB-D5E0-45CD-8557-A483DA95AD64}
+	EndGlobalSection
+EndGlobal
