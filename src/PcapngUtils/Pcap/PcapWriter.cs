@@ -41,6 +41,13 @@ namespace Haukcode.PcapngUtils.Pcap
             Initialize(new FileStream(path, FileMode.Create),sh);
         }
 
+        public PcapWriter(Stream stream, bool nanoseconds = false, bool reverseByteOrder = false)
+        {
+            CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
+            SectionHeader sh = SectionHeader.CreateEmptyHeader(nanoseconds, reverseByteOrder);
+            Initialize(stream, sh);
+        }
+
         public PcapWriter(string path, SectionHeader header)
         {
             CustomContract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(path), "path cannot be null or empty");
@@ -48,6 +55,14 @@ namespace Haukcode.PcapngUtils.Pcap
             CustomContract.Requires<ArgumentNullException>(header!=null, "SectionHeader cannot be null");
             
             Initialize(new FileStream(path, FileMode.Create),header);
+        }
+
+        public PcapWriter(Stream stream, SectionHeader header)
+        {
+            CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
+            CustomContract.Requires<ArgumentNullException>(header != null, "SectionHeader cannot be null");
+
+            Initialize(stream, header);
         }
 
          private void Initialize(Stream stream, SectionHeader header)
