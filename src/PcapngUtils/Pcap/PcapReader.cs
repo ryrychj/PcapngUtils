@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using Haukcode.PcapngUtils.Extensions;
-using Haukcode.PcapngUtils.Common;
-using System.Linq;
 using System.Runtime.ExceptionServices;
+using Haukcode.PcapngUtils.Common;
+using Haukcode.PcapngUtils.Extensions;
 
 namespace Haukcode.PcapngUtils.Pcap
 {
     public sealed class PcapReader : Disposable, IReader
     {
-        #region event & delegate
         public event CommonDelegates.ExceptionEventDelegate OnExceptionEvent;
 
         private void OnException(Exception exception)
@@ -29,21 +26,15 @@ namespace Haukcode.PcapngUtils.Pcap
         {
             CustomContract.Requires<ArgumentNullException>(Header != null, "Header cannot be null");
             CustomContract.Requires<ArgumentNullException>(packet != null, "packet cannot be null");
-            CommonDelegates.ReadPacketEventDelegate handler = OnReadPacketEvent;
-            if (handler != null)
-                handler(Header, packet);
+            OnReadPacketEvent?.Invoke(Header, packet);
         }
-        #endregion
 
-        #region fields & properties
         private Stream stream;
         private BinaryReader binaryReader;
         public SectionHeader Header { get; private set; }
         private object syncRoot = new object();
         private long BasePosition = 0;
-        #endregion
 
-        #region ctor
         public PcapReader(string path)
         {
             CustomContract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(path), "path cannot be null or empty");
@@ -70,7 +61,6 @@ namespace Haukcode.PcapngUtils.Pcap
             BasePosition = binaryReader.BaseStream.Position;
             Rewind();
         }
-        #endregion
 
         /// <summary>
         /// Close stream, dispose members
@@ -87,29 +77,11 @@ namespace Haukcode.PcapngUtils.Pcap
         /// <param name="cancellationToken"></param>
         public void ReadPackets(System.Threading.CancellationToken cancellationToken)
         {
-            uint secs, usecs, caplen, len;
-            long position = 0;
-            byte[] data;
-
-            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length && !cancellationToken.IsCancellationRequested)
+            while (!cancellationToken.IsCancellationRequested)
             {
                 try
                 {
-                    lock (syncRoot)
-                    {
-                        position = binaryReader.BaseStream.Position;
-                        secs = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
-                        usecs = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
-                        if (Header.NanoSecondResolution)
-                            usecs = usecs / 1000;
-                        caplen = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
-                        len = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
-
-                        data = binaryReader.ReadBytes((int)caplen);
-                        if (data.Length < caplen)
-                            throw new EndOfStreamException("Unable to read beyond the end of the stream");
-                    }
-                    PcapPacket packet = new PcapPacket((UInt64)secs, (UInt64)usecs, data, position);
+                    var packet = ReadNextPacket();
                     OnReadPacket(packet);
                 }
                 catch (Exception exc)
@@ -119,8 +91,39 @@ namespace Haukcode.PcapngUtils.Pcap
             }
         }
 
+        /// <inheritdoc/>
+        public IPacket ReadNextPacket()
+        {
+            uint secs, usecs, caplen, len;
+            long position = 0;
+            byte[] data;
+
+            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length)
+            {
+                lock (this.syncRoot)
+                {
+                    position = binaryReader.BaseStream.Position;
+                    secs = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
+                    usecs = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
+                    if (Header.NanoSecondResolution)
+                        usecs = usecs / 1000;
+                    caplen = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
+                    len = binaryReader.ReadUInt32().ReverseByteOrder(Header.ReverseByteOrder);
+
+                    data = binaryReader.ReadBytes((int)caplen);
+                    if (data.Length < caplen)
+                        throw new EndOfStreamException("Unable to read beyond the end of the stream");
+                }
+                var packet = new PcapPacket((UInt64)secs, (UInt64)usecs, data, position);
+
+                return packet;
+            }
+
+            return null;
+        }
+
         /// <summary>
-        /// rewind to the beginning of the stream 
+        /// rewind to the beginning of the stream
         /// </summary>
         private void Rewind()
         {
@@ -131,7 +134,6 @@ namespace Haukcode.PcapngUtils.Pcap
             }
         }
 
-        #region IDisposable Members
         /// <summary>
         /// Close stream, dispose members
         /// </summary>
@@ -142,6 +144,5 @@ namespace Haukcode.PcapngUtils.Pcap
             if (stream != null)
                 stream.Close();
         }
-        #endregion
     }
 }

@@ -1,20 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using Haukcode.PcapngUtils.PcapNG.BlockTypes;
-using System.Diagnostics.Contracts;
-using Haukcode.PcapngUtils;
 using System.Linq;
-using Haukcode.PcapngUtils.Common;
 using System.Runtime.ExceptionServices;
+using Haukcode.PcapngUtils.Common;
 using Haukcode.PcapngUtils.Extensions;
+using Haukcode.PcapngUtils.PcapNG.BlockTypes;
 
 namespace Haukcode.PcapngUtils.PcapNG
 {
-   
     public sealed class PcapNGReader : Disposable, IReader
     {
-        #region event & delegate  
         public event CommonDelegates.ExceptionEventDelegate OnExceptionEvent;
 
         private void OnException(Exception exception)
@@ -28,34 +24,28 @@ namespace Haukcode.PcapngUtils.PcapNG
         }
 
         public event CommonDelegates.ReadPacketEventDelegate OnReadPacketEvent;
+
         private void OnReadPacket(IPacket packet)
         {
             CustomContract.Requires<ArgumentNullException>(packet != null, "packet cannot be null");
-            CommonDelegates.ReadPacketEventDelegate handler = OnReadPacketEvent;
-            if (handler != null)
-                handler(this.headersWithInterface.Last(), packet);
+            OnReadPacketEvent?.Invoke(this.headersWithInterface.Last(), packet);
         }
 
-        
-        #endregion
-
-        #region fields && properties
         private BinaryReader binaryReader;
         private Stream stream;
         private long basePosition = 0;
         private bool ReverseByteOrder = false;
 
         private List<HeaderWithInterfacesDescriptions> headersWithInterface = new List<HeaderWithInterfacesDescriptions>();
+
         public IList<HeaderWithInterfacesDescriptions> HeadersWithInterfaceDescriptions
         {
-            get { return headersWithInterface.AsReadOnly(); }
+            get { return this.headersWithInterface.AsReadOnly(); }
         }
 
         private object syncRoot = new object();
-        #endregion
 
-        #region ctor
-        public PcapNGReader(string path, bool swapBytes)             
+        public PcapNGReader(string path, bool swapBytes)
         {
             CustomContract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(path), "path cannot be null or empty");
             CustomContract.Requires<ArgumentException>(File.Exists(path), "file must exists");
@@ -63,7 +53,7 @@ namespace Haukcode.PcapngUtils.PcapNG
             Initialize(new FileStream(path, FileMode.Open), swapBytes);
         }
 
-        public PcapNGReader(Stream stream, bool reverseByteOrder)             
+        public PcapNGReader(Stream stream, bool reverseByteOrder)
         {
             CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
 
@@ -74,18 +64,18 @@ namespace Haukcode.PcapngUtils.PcapNG
         {
             CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
             CustomContract.Requires<Exception>(stream.CanRead == true, "cannot read stream");
-            Action<Exception> ReThrowException = (exc) => 
-            { 
-                ExceptionDispatchInfo.Capture(exc).Throw(); 
+            Action<Exception> ReThrowException = (exc) =>
+            {
+                ExceptionDispatchInfo.Capture(exc).Throw();
             };
             this.ReverseByteOrder = reverseByteOrder;
-            this.stream = stream;   
-            binaryReader = new BinaryReader(stream);
-            List<KeyValuePair<SectionHeaderBlock, List<InterfaceDescriptionBlock>>> preHeadersWithInterface = new List<KeyValuePair<SectionHeaderBlock, List<InterfaceDescriptionBlock>>>(); 
-            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length && basePosition == 0)
+            this.stream = stream;
+            this.binaryReader = new BinaryReader(stream);
+            var preHeadersWithInterface = new List<KeyValuePair<SectionHeaderBlock, List<InterfaceDescriptionBlock>>>();
+            while (this.binaryReader.BaseStream.Position < this.binaryReader.BaseStream.Length && this.basePosition == 0)
             {
                 AbstractBlock block = AbstractBlockFactory.ReadNextBlock(binaryReader, this.ReverseByteOrder, ReThrowException);
-                if (block == null )
+                if (block == null)
                     break;
 
                 switch (block.BlockType)
@@ -94,9 +84,10 @@ namespace Haukcode.PcapngUtils.PcapNG
                         if (block is SectionHeaderBlock)
                         {
                             SectionHeaderBlock headerBlock = block as SectionHeaderBlock;
-                            preHeadersWithInterface.Add(new KeyValuePair<SectionHeaderBlock,List<InterfaceDescriptionBlock>>(headerBlock,new List<InterfaceDescriptionBlock>()));
+                            preHeadersWithInterface.Add(new KeyValuePair<SectionHeaderBlock, List<InterfaceDescriptionBlock>>(headerBlock, new List<InterfaceDescriptionBlock>()));
                         }
                         break;
+
                     case BaseBlock.Types.InterfaceDescription:
                         if (block is InterfaceDescriptionBlock)
                         {
@@ -111,31 +102,30 @@ namespace Haukcode.PcapngUtils.PcapNG
                             }
                         }
                         break;
-                    default:
-                        basePosition = block.PositionInStream;
-                        break;
-                }     
-            }
-            if (basePosition <= 0)
-                basePosition = binaryReader.BaseStream.Position;
 
-            if(!preHeadersWithInterface.Any() )
+                    default:
+                        this.basePosition = block.PositionInStream;
+                        break;
+                }
+            }
+            if (this.basePosition <= 0)
+                this.basePosition = this.binaryReader.BaseStream.Position;
+
+            if (!preHeadersWithInterface.Any())
                 throw new ArgumentException(string.Format("[PcapNgReader.Initialize] Stream don't contains any SectionHeaderBlock"));
 
-            if(!(from item in preHeadersWithInterface where (item.Value.Any()) select item).Any())
-                throw new ArgumentException(string.Format("[PcapNgReader.Initialize] Stream don't contains any InterfaceDescriptionBlock"));               
+            if (!(from item in preHeadersWithInterface where (item.Value.Any()) select item).Any())
+                throw new ArgumentException(string.Format("[PcapNgReader.Initialize] Stream don't contains any InterfaceDescriptionBlock"));
 
-            headersWithInterface = (from item in preHeadersWithInterface 
-                                                where (item.Value.Any()) 
-                                                select item)
+            this.headersWithInterface = (from item in preHeadersWithInterface
+                                         where (item.Value.Any())
+                                         select item)
                                                 .Select(x => new HeaderWithInterfacesDescriptions(x.Key, x.Value))
-                                                .ToList(); 
-   
+                                                .ToList();
+
             Rewind();
         }
-        #endregion
 
-        #region methods
         /// <summary>
         /// Close stream, dispose members
         /// </summary>
@@ -145,13 +135,13 @@ namespace Haukcode.PcapngUtils.PcapNG
         }
 
         /// <summary>
-        /// rewind to the beginning of the stream 
+        /// rewind to the beginning of the stream
         /// </summary>
         private void Rewind()
         {
-            lock (syncRoot)
+            lock (this.syncRoot)
             {
-                binaryReader.BaseStream.Position = basePosition;
+                this.binaryReader.BaseStream.Position = this.basePosition;
             }
         }
 
@@ -160,78 +150,87 @@ namespace Haukcode.PcapngUtils.PcapNG
         /// </summary>
         protected override void Dispose(bool disposing)
         {
-            if(binaryReader != null)
-                binaryReader.Close();
-            if (stream != null)
-                stream.Close();
-        } 
+            if (this.binaryReader != null)
+                this.binaryReader.Close();
+            if (this.stream != null)
+                this.stream.Close();
+        }
 
         public void ReadPackets(System.Threading.CancellationToken cancellationToken)
         {
-            AbstractBlock block;
             long prevPosition = 0;
-            while (binaryReader.BaseStream.Position < binaryReader.BaseStream.Length && !cancellationToken.IsCancellationRequested)
-            {                   
+
+            while (!cancellationToken.IsCancellationRequested)
+            {
                 try
                 {
-                    lock (syncRoot)
-                    {
-                        prevPosition = binaryReader.BaseStream.Position;
-                        block = AbstractBlockFactory.ReadNextBlock(binaryReader, this.ReverseByteOrder, OnException);
-                    }
+                    prevPosition = this.binaryReader.BaseStream.Position;
 
-                    if (block == null)
-                    {
-                        throw new Exception(string.Format("[ReadPackets] AbstractBlockFactory cannot read packet on position {0}", prevPosition));
-                       
-                    }
+                    var packet = ReadNextPacket();
+                    if (packet == null)
+                        // EOF
+                        return;
 
-                    switch(block.BlockType)
-                    {
-                        case BaseBlock.Types.EnhancedPacket:
-                            {
-                                EnchantedPacketBlock enchantedBlock = block as EnchantedPacketBlock;
-                                if (enchantedBlock == null)
-                                    throw new Exception(string.Format("[ReadPackets] system cannot cast block to EnchantedPacketBlock. Block start on position: {0}.", prevPosition));
-                                else
-                                    OnReadPacket(enchantedBlock);
-                            }
-                            break;
-                        case BaseBlock.Types.Packet:
-                            {
-                                PacketBlock packetBlock = block as PacketBlock;
-                                if (packetBlock == null)
-                                    throw new Exception(string.Format("[ReadPackets] system cannot cast block to PacketBlock. Block start on position: {0}.", prevPosition));
-                                else
-                                    OnReadPacket(packetBlock);
-                            }
-                            break;
-                        case BaseBlock.Types.SimplePacket:
-                            {
-                                SimplePacketBlock simpleBlock = block as SimplePacketBlock;
-                                if (simpleBlock == null)
-                                    throw new Exception(string.Format("[ReadPackets] system cannot cast block to SimplePacketBlock. Block start on position: {0}.", prevPosition));
-                                else
-                                    OnReadPacket(simpleBlock);
-                            }
-                            break;
-                        default:
-                            break;
-                    } 
+                    OnReadPacket(packet);
                 }
                 catch (Exception exc)
                 {
                     OnException(exc);
-                    lock (syncRoot)
+
+                    lock (this.syncRoot)
                     {
-                        if (prevPosition == binaryReader.BaseStream.Position)
+                        if (prevPosition == this.binaryReader.BaseStream.Position)
+                            // Nothing more to read
                             break;
                     }
                     continue;
                 }
             }
         }
-       
-        #endregion
+
+        public IPacket ReadNextPacket()
+        {
+            AbstractBlock block;
+            long prevPosition = 0;
+            while (this.binaryReader.BaseStream.Position < this.binaryReader.BaseStream.Length)
+            {
+                lock (this.syncRoot)
+                {
+                    prevPosition = this.binaryReader.BaseStream.Position;
+                    block = AbstractBlockFactory.ReadNextBlock(this.binaryReader, this.ReverseByteOrder, OnException);
+                }
+
+                if (block == null)
+                {
+                    throw new Exception($"[ReadPackets] AbstractBlockFactory cannot read packet on position {prevPosition}");
+                }
+
+                switch (block.BlockType)
+                {
+                    case BaseBlock.Types.EnhancedPacket:
+                        if (!(block is EnchantedPacketBlock enchantedBlock))
+                            throw new Exception($"[ReadPackets] system cannot cast block to EnchantedPacketBlock. Block start on position: {prevPosition}.");
+                        else
+                            return enchantedBlock;
+
+                    case BaseBlock.Types.Packet:
+                        if (!(block is PacketBlock packetBlock))
+                            throw new Exception($"[ReadPackets] system cannot cast block to PacketBlock. Block start on position: {prevPosition}.");
+                        else
+                            return packetBlock;
+
+                    case BaseBlock.Types.SimplePacket:
+                        if (!(block is SimplePacketBlock simpleBlock))
+                            throw new Exception($"[ReadPackets] system cannot cast block to SimplePacketBlock. Block start on position: {prevPosition}.");
+                        else
+                            return simpleBlock;
+
+                    default:
+                        break;
+                }
+            }
+
+            return null;
+        }
     }
 }

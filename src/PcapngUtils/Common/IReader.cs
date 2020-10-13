@@ -21,5 +21,11 @@ namespace Haukcode.PcapngUtils.Common
         /// </summary>
         /// <param name="cancellationToken"></param>
         void ReadPackets(System.Threading.CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Read one packet
+        /// </summary>
+        /// <returns>Next packet, or null at EOF</returns>
+        IPacket ReadNextPacket();
     }
 }
