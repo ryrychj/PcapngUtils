@@ -49,6 +49,12 @@ namespace Haukcode.PcapngUtils.PcapNG
             Initialize(new FileStream(path, FileMode.Create), new List<HeaderWithInterfacesDescriptions>(){header}) ;
         }  
 
+        public PcapNGWriter(Stream stream, bool reverseByteOrder = false)
+        {
+            CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
+            HeaderWithInterfacesDescriptions header = HeaderWithInterfacesDescriptions.CreateEmptyHeadeWithInterfacesDescriptions(false);
+            Initialize(stream, new List<HeaderWithInterfacesDescriptions>() { header });
+        }
         public PcapNGWriter(string path, List<HeaderWithInterfacesDescriptions> headersWithInterface)
         {
             CustomContract.Requires<ArgumentNullException>(!string.IsNullOrWhiteSpace(path), "path cannot be null or empty");
@@ -59,6 +65,15 @@ namespace Haukcode.PcapngUtils.PcapNG
             CustomContract.Requires<ArgumentException>(headersWithInterface.Count >= 1, "headersWithInterface list is empty");
 
             Initialize(new FileStream(path, FileMode.Create), headersWithInterface);
+        }
+        public PcapNGWriter(Stream stream, List<HeaderWithInterfacesDescriptions> headersWithInterface)
+        {
+            CustomContract.Requires<ArgumentNullException>(stream != null, "stream cannot be null");
+            CustomContract.Requires<ArgumentNullException>(headersWithInterface != null, "headersWithInterface list cannot be null");
+
+            CustomContract.Requires<ArgumentException>(headersWithInterface.Count >= 1, "headersWithInterface list is empty");
+
+            Initialize(stream,  headersWithInterface);
         }
 
         private void Initialize(Stream stream, List<HeaderWithInterfacesDescriptions> headersWithInterface)
