@@ -1,4 +1,4 @@
-name: .NET Core
+name: Build and Publish
 
 on:
   push:
@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [ master ]
 
+defaults:  
+  run:  
+    working-directory: ./src
+    
 jobs:
   build:
 
@@ -23,6 +27,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+    ## Publish
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:
