@@ -34,7 +34,5 @@ jobs:
         VERSION_REGEX: ^\s*<Version>(.*)<\/Version>\s*$
         # Flag to toggle git tagging, enabled by default
         TAG_COMMIT: true
-        # API key to authenticate with NuGet server
-        NUGET_KEY: oy2k4hcdktejhsff76wa6sxfnhyqw2suhjj7h67d6ldirq
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
         INCLUDE_SYMBOLS: true
