@@ -13,7 +13,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/HakanL/PcapngUtils</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageReleaseNotes>1.1.0 Added new methods to get next packet as an alternative to streaming via callback event
+    <PackageReleaseNotes>1.1.0 Added new methods to get next packet as an alternative to streaming via callback event. Also added ways to add streams to the constructors.
 1.0.8 Converted to .NET Standard 2.0 and removed NUnit dependencies</PackageReleaseNotes>
     <PackageId>Haukcode.PcapngUtils</PackageId>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>
