@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace Haukcode.PcapngUtils.Common
 {
-    public interface IReader : IDisposable 
+    public interface IReader : IDisposable
     {
         /// <summary>
         /// Close stream, dispose members
         /// </summary>
-        void Close(); 
+        void Close();
         event CommonDelegates.ExceptionEventDelegate OnExceptionEvent;
         event CommonDelegates.ReadPacketEventDelegate OnReadPacketEvent;
 
@@ -27,5 +27,20 @@ namespace Haukcode.PcapngUtils.Common
         /// </summary>
         /// <returns>Next packet, or null at EOF</returns>
         IPacket ReadNextPacket();
+
+        /// <summary>
+        /// Current file position
+        /// </summary>
+        long Position { get; }
+
+        /// <summary>
+        /// Rewind to read from the beginning again
+        /// </summary>
+        void Rewind();
+
+        /// <summary>
+        /// More data is available
+        /// </summary>
+        bool MoreAvailable { get; }
     }
 }

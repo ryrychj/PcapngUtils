@@ -5,7 +5,7 @@
     <RootNamespace>Haukcode.PcapngUtils</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <Version>1.1.0-test</Version>
+    <Version>1.1.0</Version>
     <Description>C# full managed implementation Pcap/PcapNG file format</Description>
     <Company>Janusz Ryrych</Company>
     <Authors>Janusz Ryrych, Hakan Lindestaf</Authors>
@@ -13,7 +13,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <RepositoryUrl>https://github.com/HakanL/PcapngUtils</RepositoryUrl>
     <RepositoryType>GIT</RepositoryType>
-    <PackageReleaseNotes>1.1.0 Added new method to get next packet
+    <PackageReleaseNotes>1.1.0 Added new methods to get next packet as an alternative to streaming via callback event
 1.0.8 Converted to .NET Standard 2.0 and removed NUnit dependencies</PackageReleaseNotes>
     <PackageId>Haukcode.PcapngUtils</PackageId>
     <AssemblyVersion>1.1.0.0</AssemblyVersion>

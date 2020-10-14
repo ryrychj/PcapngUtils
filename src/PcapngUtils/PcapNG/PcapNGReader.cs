@@ -43,7 +43,11 @@ namespace Haukcode.PcapngUtils.PcapNG
             get { return this.headersWithInterface.AsReadOnly(); }
         }
 
-        private object syncRoot = new object();
+        public long Position => this.binaryReader.BaseStream.Position;
+
+        public bool MoreAvailable => this.binaryReader.BaseStream.Position < this.binaryReader.BaseStream.Length;
+
+        private readonly object syncRoot = new object();
 
         public PcapNGReader(string path, bool swapBytes)
         {
@@ -137,7 +141,7 @@ namespace Haukcode.PcapngUtils.PcapNG
         /// <summary>
         /// rewind to the beginning of the stream
         /// </summary>
-        private void Rewind()
+        public void Rewind()
         {
             lock (this.syncRoot)
             {
