@@ -22,7 +22,7 @@ jobs:
         prop_path: 'version'
     - run: echo "version=${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
       if: github.ref == 'refs/heads/master'
-    - run: echo "version=${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${BRANCH_NAME}" >> $GITHUB_ENV
+    - run: echo "version=${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${GITHUB_SHA::8}-${BRANCH_NAME}" >> $GITHUB_ENV
       if: github.ref != 'refs/heads/master'
     - run: echo Version is ${version}
 
@@ -44,3 +44,4 @@ jobs:
       run: |
         git tag "v${version}"
         git push origin "v${version}"
+      if: github.ref == 'refs/heads/master'
