@@ -25,7 +25,7 @@ jobs:
       with:
         path: version.json
         property: version
-    - run: echo ${{steps.version2.outputs.property}}
+    - run: echo ${{steps.version2.outputs.value}}
     - name: Get version
       id: version
       uses: notiz-dev/github-action-json-property@release
