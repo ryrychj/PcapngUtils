@@ -6,8 +6,8 @@ on:
   pull_request:
     branches: [ master ]
 
-defaults:  
-  run:  
+#defaults:  
+  #run:  
     #working-directory: ./src
     
 jobs:
