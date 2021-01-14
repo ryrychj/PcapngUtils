@@ -11,10 +11,10 @@ using System.Security.Cryptography;
 
 namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
 {
-    public sealed class EnchantedPacketOption : AbstractOption
+    public sealed class EnhancedPacketOption : AbstractOption
     {
         #region enum
-        public enum EnchantedPacketOptionCode : ushort
+        public enum EnhancedPacketOptionCode : ushort
         {
             EndOfOptionsCode = 0,
             CommentCode = 1,
@@ -69,7 +69,7 @@ namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
         #endregion
 
         #region ctor
-        public EnchantedPacketOption(string Comment = null, PacketBlockFlags PacketFlag = null, long? DropCount = null, HashBlock Hash = null) 
+        public EnhancedPacketOption(string Comment = null, PacketBlockFlags PacketFlag = null, long? DropCount = null, HashBlock Hash = null)
         {
             this.Comment = Comment;
             this.PacketFlag = PacketFlag;
@@ -79,47 +79,47 @@ namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
         #endregion
 
         #region methods
-        public static EnchantedPacketOption Parse(BinaryReader binaryReader, bool reverseByteOrder, Action<Exception> ActionOnException)
+        public static EnhancedPacketOption Parse(BinaryReader binaryReader, bool reverseByteOrder, Action<Exception> ActionOnException)
         {
             CustomContract.Requires<ArgumentNullException>(binaryReader != null, "binaryReader cannot be null");
-            EnchantedPacketOption option = new EnchantedPacketOption();
+            EnhancedPacketOption option = new EnhancedPacketOption();
             List<KeyValuePair<ushort, byte[]>> optionsList = EkstractOptions(binaryReader, reverseByteOrder, ActionOnException);
-            
+
             if (optionsList.Any())
             {
                 foreach (var item in optionsList)
-                {   
+                {
                     try
                     {
                         switch (item.Key)
                         {
-                            case (ushort)EnchantedPacketOptionCode.CommentCode:
+                            case (ushort)EnhancedPacketOptionCode.CommentCode:
                                 option.Comment = UTF8Encoding.UTF8.GetString(item.Value);
                                 break;
-                            case (ushort)EnchantedPacketOptionCode.PacketFlagCode:
+                            case (ushort)EnhancedPacketOptionCode.PacketFlagCode:
                                 if (item.Value.Length == 4)
                                 {
                                     uint packetFlag = (BitConverter.ToUInt32(item.Value, 0)).ReverseByteOrder(reverseByteOrder);
                                     option.PacketFlag = new PacketBlockFlags(packetFlag);
                                 }
                                 else
-                                    throw new ArgumentException(string.Format("[EnchantedPacketOptio.Parse] PacketFlagCode contains invalid length. Received: {0} bytes, expected: {1}", item.Value.Length, 4));
+                                    throw new ArgumentException(string.Format("[EnhancedPacketOptio.Parse] PacketFlagCode contains invalid length. Received: {0} bytes, expected: {1}", item.Value.Length, 4));
                                 break;
-                            case (ushort)EnchantedPacketOptionCode.HashCode:
+                            case (ushort)EnhancedPacketOptionCode.HashCode:
                                 option.Hash = new HashBlock(item.Value);
                                 break;
-                            case (ushort)EnchantedPacketOptionCode.DropCountCode:
+                            case (ushort)EnhancedPacketOptionCode.DropCountCode:
                                 if (item.Value.Length == 8)
                                     option.DropCount = (BitConverter.ToInt64(item.Value, 0)).ReverseByteOrder(reverseByteOrder);
                                 else
-                                    throw new ArgumentException(string.Format("[EnchantedPacketOptio.Parse] HashCode contains invalid length. Received: {0} bytes, expected: {1}", item.Value.Length, 8));
+                                    throw new ArgumentException(string.Format("[EnhancedPacketOptio.Parse] HashCode contains invalid length. Received: {0} bytes, expected: {1}", item.Value.Length, 8));
                                 break;
-                            case (ushort)EnchantedPacketOptionCode.EndOfOptionsCode:
+                            case (ushort)EnhancedPacketOptionCode.EndOfOptionsCode:
                             default:
                                 break;
                         }
                     }
-                    catch(Exception exc)
+                    catch (Exception exc)
                     {
                         if (ActionOnException != null)
                             ActionOnException(exc);
@@ -138,33 +138,33 @@ namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
             {
                 byte[] comentValue = UTF8Encoding.UTF8.GetBytes(Comment);
                 if (comentValue.Length <= UInt16.MaxValue)
-                    ret.AddRange(ConvertOptionFieldToByte((ushort)EnchantedPacketOptionCode.CommentCode, comentValue, reverseByteOrder, ActionOnException));
+                    ret.AddRange(ConvertOptionFieldToByte((ushort)EnhancedPacketOptionCode.CommentCode, comentValue, reverseByteOrder, ActionOnException));
             }
 
             if (PacketFlag != null)
             {
                 byte[] packetFlagValue = BitConverter.GetBytes(PacketFlag.Flag.ReverseByteOrder(reverseByteOrder));
-                ret.AddRange(ConvertOptionFieldToByte((ushort)EnchantedPacketOptionCode.PacketFlagCode, packetFlagValue, reverseByteOrder, ActionOnException));
+                ret.AddRange(ConvertOptionFieldToByte((ushort)EnhancedPacketOptionCode.PacketFlagCode, packetFlagValue, reverseByteOrder, ActionOnException));
             }
 
             if (Hash != null)
             {
                 byte[] hashValue = Hash.ConvertToByte();
                 if (hashValue.Length <= UInt16.MaxValue)
-                    ret.AddRange(ConvertOptionFieldToByte((ushort)EnchantedPacketOptionCode.HashCode, hashValue, reverseByteOrder, ActionOnException));
+                    ret.AddRange(ConvertOptionFieldToByte((ushort)EnhancedPacketOptionCode.HashCode, hashValue, reverseByteOrder, ActionOnException));
             }
 
             if (DropCount.HasValue)
             {
                 byte[] dropCountValue = BitConverter.GetBytes(DropCount.Value.ReverseByteOrder(reverseByteOrder));
-                ret.AddRange(ConvertOptionFieldToByte((ushort)EnchantedPacketOptionCode.DropCountCode, dropCountValue, reverseByteOrder, ActionOnException));
+                ret.AddRange(ConvertOptionFieldToByte((ushort)EnhancedPacketOptionCode.DropCountCode, dropCountValue, reverseByteOrder, ActionOnException));
             }
 
-            ret.AddRange(ConvertOptionFieldToByte((ushort)EnchantedPacketOptionCode.EndOfOptionsCode, new byte[0], reverseByteOrder, ActionOnException));
+            ret.AddRange(ConvertOptionFieldToByte((ushort)EnhancedPacketOptionCode.EndOfOptionsCode, new byte[0], reverseByteOrder, ActionOnException));
             return ret.ToArray();
-        } 
+        }
         #endregion
 
-        
+
     }
 }

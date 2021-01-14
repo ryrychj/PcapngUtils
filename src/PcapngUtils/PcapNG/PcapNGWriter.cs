@@ -117,7 +117,7 @@ namespace Haukcode.PcapngUtils.PcapNG
                 }
                 else
                 {
-                    abstractBlock = EnchantedPacketBlock.CreateEnchantedPacketFromIPacket(packet, OnException);
+                    abstractBlock = EnhancedPacketBlock.CreateEnhancedPacketFromIPacket(packet, OnException);
                 }
 
                 HeaderWithInterfacesDescriptions header = this.HeadersWithInterfaces.Last();

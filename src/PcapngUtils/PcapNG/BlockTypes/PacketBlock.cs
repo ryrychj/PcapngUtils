@@ -16,14 +16,14 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
     public sealed class PacketBlock:AbstractBlock,IPacket
     {
         #region IPacket
-        public ulong Seconds
+        public uint Seconds
         {
-            get { return this.Timestamp.Seconds; }
+            get { return Timestamp.Seconds; }
         }
 
-        public ulong Microseconds
+        public uint Microseconds
         {
-            get { return this.Timestamp.Microseconds; }
+            get { return Timestamp.Microseconds; }
         }
         #endregion
 

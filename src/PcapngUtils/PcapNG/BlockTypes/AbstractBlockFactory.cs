@@ -41,7 +41,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                         block = InterfaceStatisticsBlock.Parse(baseblock, ActionOnException);
                         break;
                     case BaseBlock.Types.EnhancedPacket:
-                        block = EnchantedPacketBlock.Parse(baseblock, ActionOnException);
+                        block = EnhancedPacketBlock.Parse(baseblock, ActionOnException);
                         break;
                     default:                             
                         break;

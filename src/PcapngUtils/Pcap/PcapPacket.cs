@@ -5,7 +5,7 @@ using Haukcode.PcapngUtils.Extensions;
 
 namespace Haukcode.PcapngUtils.Pcap
 {
-    public class PcapPacket:IPacket
+    public class PcapPacket : IPacket
     {
         /// <summary>
         /// ts_sec: the date and time when this packet was captured. This value is in seconds since January 1, 1970 00:00:00 GMT; 
@@ -13,7 +13,7 @@ namespace Haukcode.PcapngUtils.Pcap
         /// a more optimized way to get this timestamp value. If this timestamp isn't based on GMT (UTC), use thiszone from the global header 
         /// for adjustments.
         /// </summary>
-        public UInt64 Seconds
+        public uint Seconds
         {
             get;
             set;
@@ -25,7 +25,7 @@ namespace Haukcode.PcapngUtils.Pcap
         /// Beware: this value shouldn't reach 1 second (in regular pcap files 1 000 000; in nanosecond-resolution files, 1 000 000 000); 
         /// in this case ts_sec must be increased instead!
         /// </summary>
-        public UInt64 Microseconds
+        public uint Microseconds
         {
             get;
             set;
@@ -43,18 +43,18 @@ namespace Haukcode.PcapngUtils.Pcap
         /// <summary>
         /// packet position in the stream  (set when reading from the stream. )
         /// </summary>
-        public long PositionInStream 
-        { 
-            get; 
+        public long PositionInStream
+        {
+            get;
             set;
         }
-        public PcapPacket(UInt64 secs, UInt64 usecs, byte[] data,long positionInStream)
+        public PcapPacket(uint secs, uint usecs, byte[] data, long positionInStream)
         {
             CustomContract.Requires<ArgumentNullException>(data != null, "data cannot be null");
-            this.Seconds = secs;
-            this.Microseconds = usecs;
-            this.Data = data;
-            this.PositionInStream = positionInStream;
-        } 
+            Seconds = secs;
+            Microseconds = usecs;
+            Data = data;
+            PositionInStream = positionInStream;
+        }
     }
 }

@@ -212,10 +212,10 @@ namespace Haukcode.PcapngUtils.PcapNG
                 switch (block.BlockType)
                 {
                     case BaseBlock.Types.EnhancedPacket:
-                        if (!(block is EnchantedPacketBlock enchantedBlock))
-                            throw new Exception($"[ReadPackets] system cannot cast block to EnchantedPacketBlock. Block start on position: {prevPosition}.");
+                        if (!(block is EnhancedPacketBlock enhancedBlock))
+                            throw new Exception($"[ReadPackets] system cannot cast block to EnhancedPacketBlock. Block start on position: {prevPosition}.");
                         else
-                            return enchantedBlock;
+                            return enhancedBlock;
 
                     case BaseBlock.Types.Packet:
                         if (!(block is PacketBlock packetBlock))

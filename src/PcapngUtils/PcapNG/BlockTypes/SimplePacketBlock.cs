@@ -12,14 +12,14 @@ using Haukcode.PcapngUtils.Common;
 namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
 {
     public sealed class SimplePacketBlock : AbstractBlock, IPacket
-    {   
+    {
         #region IPacket
-        public ulong Seconds
+        public uint Seconds
         {
             get { return 0; }
         }
 
-        public ulong Microseconds
+        public uint Microseconds
         {
             get { return 0; }
         }
@@ -68,8 +68,8 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                 CustomContract.Requires<ArgumentNullException>(value != null, "Data cannot be null");
                 data = value;
             }
-        } 
-        
+        }
+
         #endregion
 
         #region ctor
@@ -86,7 +86,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                 {
                     int packetLength = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
 
-                    byte [] data = binaryReader.ReadBytes(packetLength);
+                    byte[] data = binaryReader.ReadBytes(packetLength);
                     if (data.Length < packetLength)
                         throw new EndOfStreamException("Unable to read beyond the end of the stream");
                     int remainderLength = packetLength % BaseBlock.AlignmentBoundary;
@@ -110,10 +110,10 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
         /// critical. The Simple Packet Block does not contain the Interface ID field. Therefore, it must be assumed that all the Simple Packet 
         /// Blocks have been captured on the interface previously specified in the first Interface Description Block.
         /// </summary>       
-        public SimplePacketBlock( byte[] Data, long PositionInStream = 0)
+        public SimplePacketBlock(byte[] Data, long PositionInStream = 0)
         {
-            CustomContract.Requires<ArgumentNullException>(Data != null, "Data cannot be null");     
-            this.Data = Data;                    
+            CustomContract.Requires<ArgumentNullException>(Data != null, "Data cannot be null");
+            this.Data = Data;
             this.PositionInStream = PositionInStream;
         }
         #endregion
@@ -128,7 +128,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
             for (int i = 0; i < remainderLength; i++)
             {
                 body.Add(0);
-            }            
+            }
             BaseBlock baseBlock = new BaseBlock(this.BlockType, body.ToArray(), reverseByteOrder, 0);
             return baseBlock;
         }

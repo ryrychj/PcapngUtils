@@ -13,15 +13,15 @@ using System.Security.Cryptography;
 namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
 {
     [TestFixture]
-    public static class EnchantedPacketOption_Test
+    public static class EnhancedPacketOption_Test
     {
         [TestCase(true)]
         [TestCase(false)]
         [ContractVerification(false)]
-        public static void EnchantedPacketOption_ConvertToByte_Test(bool reorder)
+        public static void EnhancedPacketOption_ConvertToByte_Test(bool reorder)
         {
-            EnchantedPacketOption preOption = new EnchantedPacketOption();
-            EnchantedPacketOption postOption;
+            EnhancedPacketOption preOption = new EnhancedPacketOption();
+            EnhancedPacketOption postOption;
             preOption.Comment = "Test Comment";
             preOption.DropCount = 25;
             byte[] md5Hash = { 3, 87, 248, 225, 163, 56, 121, 102, 219, 226, 164, 68, 165, 51, 9, 177, 59 };
@@ -32,7 +32,7 @@ namespace Haukcode.PcapngUtils.PcapNG.OptionTypes
             {
                 using (BinaryReader binaryReader = new BinaryReader(stream))
                 {
-                    postOption = EnchantedPacketOption.Parse(binaryReader, reorder, null);
+                    postOption = EnhancedPacketOption.Parse(binaryReader, reorder, null);
                 }
             }
 

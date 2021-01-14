@@ -18,7 +18,7 @@ namespace Haukcode.PcapngUtils.PcapNG.CommonTypes
             byte[] testData = { 1, 0, 0, 0, 1, 0, 0, 0 };
             uint TimestampHight = BitConverter.ToUInt32(testData, 0);
             TimestampHelper timestamp = new TimestampHelper(testData, false);
-            Assert.AreEqual(timestamp.TimestampHight, 1);
+            Assert.AreEqual(timestamp.TimestampHigh, 1);
             Assert.AreEqual(timestamp.TimestampLow, 1);
             Assert.AreEqual(timestamp.Seconds, 4294);
             Assert.AreEqual(timestamp.Microseconds, 967297);

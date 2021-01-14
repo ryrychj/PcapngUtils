@@ -8,8 +8,10 @@ namespace Haukcode.PcapngUtils.Common
 {
     public interface IPacket
     {
-        UInt64 Seconds {get;}
-        UInt64 Microseconds{get;}
+        uint Seconds { get; }
+
+        uint Microseconds { get; }
+
         byte[] Data { get; }
     }
 }

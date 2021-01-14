@@ -13,17 +13,17 @@ using Haukcode.PcapngUtils.Common;
 
 namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
 {
-    public sealed class EnchantedPacketBlock : AbstractBlock, IPacket
+    public sealed class EnhancedPacketBlock : AbstractBlock, IPacket
     {
         #region IPacket
-        public ulong Seconds
+        public uint Seconds
         {
-            get { return this.Timestamp.Seconds; }
+            get { return Timestamp.Seconds; }
         }
 
-        public ulong Microseconds
+        public uint Microseconds
         {
-            get { return this.Timestamp.Microseconds; }
+            get { return Timestamp.Microseconds; }
         }
         #endregion
 
@@ -65,7 +65,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
         {
             get;
             set;
-        }  
+        }
 
         /// <summary>
         /// Packet Len: actual length of the packet when it was transmitted on the network. It can be different from Captured Len if the user 
@@ -92,7 +92,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
         /// Packet Data: the data coming from the network, including link-layer headers. The actual length of this field is Captured Len. 
         /// The format of the link-layer headers depends on the LinkType field specified in the Interface Description Block
         /// </summary>
-        public byte [] Data
+        public byte[] Data
         {
             get
             {
@@ -105,13 +105,13 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
             }
         }
 
-        private EnchantedPacketOption options;
+        private EnhancedPacketOption options;
         /// <summary>
         /// optional fields. Optional fields can be used to insert some information that may be useful when reading data, but that is not 
         /// really needed for packet processing. Therefore, each tool can either read the content of the optional fields (if any), 
         /// or skip some of them or even all at once.
         /// </summary>
-        public EnchantedPacketOption Options
+        public EnhancedPacketOption Options
         {
             get
             {
@@ -122,15 +122,15 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                 CustomContract.Requires<ArgumentNullException>(value != null, "Options cannot be null");
                 options = value;
             }
-        } 
+        }
         #endregion
 
         #region ctor
-        public static EnchantedPacketBlock Parse(BaseBlock baseBlock, Action<Exception> ActionOnException)
-        {                           
+        public static EnhancedPacketBlock Parse(BaseBlock baseBlock, Action<Exception> ActionOnException)
+        {
             CustomContract.Requires<ArgumentNullException>(baseBlock != null, "BaseBlock cannot be null");
             CustomContract.Requires<ArgumentNullException>(baseBlock.Body != null, "BaseBlock.Body cannot be null");
-            CustomContract.Requires<ArgumentException>(baseBlock.BlockType == BaseBlock.Types.EnhancedPacket, "Invalid packet type");    
+            CustomContract.Requires<ArgumentException>(baseBlock.BlockType == BaseBlock.Types.EnhancedPacket, "Invalid packet type");
 
             long positionInStream = baseBlock.PositionInStream;
             using (Stream stream = new MemoryStream(baseBlock.Body))
@@ -142,7 +142,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                     TimestampHelper timestampHelper = new TimestampHelper(timestamp, baseBlock.ReverseByteOrder);
                     int capturedLength = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
                     int packetLength = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
-                    byte [] data = binaryReader.ReadBytes(capturedLength);
+                    byte[] data = binaryReader.ReadBytes(capturedLength);
                     if (data.Length < capturedLength)
                         throw new EndOfStreamException("Unable to read beyond the end of the stream");
                     int remainderLength = (int)capturedLength % BaseBlock.AlignmentBoundary;
@@ -151,23 +151,25 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                         int paddingLength = BaseBlock.AlignmentBoundary - remainderLength;
                         binaryReader.ReadBytes(paddingLength);
                     }
-                    EnchantedPacketOption option = EnchantedPacketOption.Parse(binaryReader, baseBlock.ReverseByteOrder, ActionOnException);
-                    EnchantedPacketBlock enchantedBlock = new EnchantedPacketBlock(interfaceID, timestampHelper, packetLength, data, option, positionInStream);
-                    return enchantedBlock;
-                }   
+                    var option = EnhancedPacketOption.Parse(binaryReader, baseBlock.ReverseByteOrder, ActionOnException);
+                    var enhancedBlock = new EnhancedPacketBlock(interfaceID, timestampHelper, packetLength, data, option, positionInStream);
+
+                    return enhancedBlock;
+                }
             }
         }
 
-        public static EnchantedPacketBlock CreateEnchantedPacketFromIPacket(IPacket packet, Action<Exception> ActionOnException)
+        public static EnhancedPacketBlock CreateEnhancedPacketFromIPacket(IPacket packet, Action<Exception> ActionOnException)
         {
             CustomContract.Requires<ArgumentNullException>(packet != null, "packet cannot be null");
             CustomContract.Requires<ArgumentNullException>(packet.Data != null, "packet.Data cannot be null");
-            TimestampHelper timestampHelper = new TimestampHelper(packet.Seconds, packet.Microseconds);
+            var timestampHelper = new TimestampHelper(packet.Seconds, packet.Microseconds);
 
-            EnchantedPacketBlock enchantedBlock = new EnchantedPacketBlock(0, timestampHelper, packet.Data.Length, packet.Data, new EnchantedPacketOption(), 0);
-            return enchantedBlock;             
+            var enhancedBlock = new EnhancedPacketBlock(0, timestampHelper, packet.Data.Length, packet.Data, new EnhancedPacketOption(), 0);
+
+            return enhancedBlock;
         }
-        
+
         /// <summary>
         /// An Enhanced Packet Block is the standard container for storing the packets coming from the network. The Enhanced Packet Block 
         /// is optional because packets can be stored either by means of this block or the Simple Packet Block, which can be used to speed 
@@ -177,7 +179,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
         /// a large number of interfaces differently from the Packet Block, the number of packets dropped by the capture system between 
         /// this packet and the previous one is not stored in the header, but rather in an option of the block itself.
         /// </summary>        
-        public EnchantedPacketBlock(int InterfaceID, TimestampHelper Timestamp, int PacketLength, byte[] Data, EnchantedPacketOption Options, long PositionInStream = 0)
+        public EnhancedPacketBlock(int InterfaceID, TimestampHelper Timestamp, int PacketLength, byte[] Data, EnhancedPacketOption Options, long PositionInStream = 0)
         {
             CustomContract.Requires<ArgumentNullException>(Timestamp != null, "Timestamp cannot be null");
             CustomContract.Requires<ArgumentNullException>(Options != null, "Options cannot be null");
@@ -197,7 +199,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
         {
             List<byte> body = new List<byte>();
             body.AddRange(BitConverter.GetBytes(InterfaceID.ReverseByteOrder(reverseByteOrder)));
-            body.AddRange(Timestamp.ConvertToByte(reverseByteOrder)); 
+            body.AddRange(Timestamp.ConvertToByte(reverseByteOrder));
             body.AddRange(BitConverter.GetBytes(Data.Length.ReverseByteOrder(reverseByteOrder)));
             body.AddRange(BitConverter.GetBytes(PacketLength.ReverseByteOrder(reverseByteOrder)));
             body.AddRange(Data);
@@ -207,9 +209,9 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                 body.Add(0);
             }
             body.AddRange(Options.ConvertToByte(reverseByteOrder, ActionOnException));
-            BaseBlock baseBlock = new BaseBlock(this.BlockType,body.ToArray(),reverseByteOrder,0);
+            BaseBlock baseBlock = new BaseBlock(this.BlockType, body.ToArray(), reverseByteOrder, 0);
             return baseBlock;
-        }   
+        }
         #endregion
     }
 }

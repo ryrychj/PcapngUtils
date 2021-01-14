@@ -119,7 +119,7 @@ namespace Haukcode.PcapngUtils.Pcap
                     if (data.Length < caplen)
                         throw new EndOfStreamException("Unable to read beyond the end of the stream");
                 }
-                var packet = new PcapPacket((UInt64)secs, (UInt64)usecs, data, position);
+                var packet = new PcapPacket(secs, usecs, data, position);
 
                 return packet;
             }
