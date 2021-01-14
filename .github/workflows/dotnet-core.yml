@@ -19,6 +19,13 @@ jobs:
     - uses: actions/checkout@v2
     - run: pwd
     - run: ls ${{env.GITHUB_WORKSPACE}}
+    - name: read JSON property
+      id: version2
+      uses: ashley-taylor/read-json-property-action@v1.0
+      with:
+        path: ../version.json
+        property: version
+    - run: echo ${{steps.version2.outputs.prop}}
     - name: Get version
       id: version
       uses: notiz-dev/github-action-json-property@release
