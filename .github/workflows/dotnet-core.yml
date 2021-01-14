@@ -25,11 +25,11 @@ jobs:
         path: version.json
         prop_path: 'version'
     - run: echo ${{steps.version.outputs.prop}}
-    - run: echo ${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER} >> $VERSION
+    - run: echo "version=${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
       if: github.ref == 'refs/heads/master'
-    - run: echo ${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${BRANCH_NAME} >> $VERSION
+    - run: echo "version=${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${BRANCH_NAME}" >> $GITHUB_ENV
       if: github.ref != 'refs/heads/master'
-    - run: echo Version is ${VERSION}
+    - run: echo Version is ${version}
 
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
