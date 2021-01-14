@@ -39,7 +39,4 @@ jobs:
 
     ## Publish
     - name: Publish NuGet
-      uses: myci-actions/publish-nuget@2
-      with:
-        filename: '*.nupkg'
-        api-key: ${{ secrets.NUGET_KEY }}
+      run: dotnet nuget push src/PcapngUtils/bin/Release/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_KEY }}
