@@ -8,7 +8,7 @@ on:
 
 defaults:  
   run:  
-    working-directory: ./src
+    #working-directory: ./src
     
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       id: version2
       uses: ashley-taylor/read-json-property-action@v1.0
       with:
-        path: ../version.json
+        path: version.json
         property: version
     - run: echo ${{steps.version2.outputs.prop}}
     - name: Get version
