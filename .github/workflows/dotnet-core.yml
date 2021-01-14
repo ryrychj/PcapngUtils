@@ -41,5 +41,6 @@ jobs:
     - name: Publish NuGet
       run: dotnet nuget push PcapngUtils/bin/Release/*.nupkg --skip-duplicate --source https://api.nuget.org --api-key ${{ secrets.NUGET_KEY }}
     - name: Tag
-      run: git tag -a "v${version}"
+      run: |
+        git tag -a "v${version}"
         git push origin "v${version}"
