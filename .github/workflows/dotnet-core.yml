@@ -25,7 +25,7 @@ jobs:
         path: version.json
         prop_path: 'version'
     - run: echo ${{steps.version.outputs.prop}}
-    - run: echo${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER} >> $VERSION
+    - run: echo ${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER} >> $VERSION
       if: github.ref == 'refs/heads/master'
     - run: echo ${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${BRANCH_NAME} >> $VERSION
       if: github.ref != 'refs/heads/master'
