@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
-#defaults:  
-  #run:  
-    #working-directory: ./src
+defaults:  
+  run:  
+    working-directory: ./src
     
 jobs:
   build:
