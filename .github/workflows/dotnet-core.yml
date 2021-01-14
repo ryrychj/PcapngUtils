@@ -6,9 +6,9 @@ on:
   pull_request:
     branches: [ master ]
 
-#defaults:
-  #run:  
-    #working-directory: ./src
+defaults:
+  run:  
+    working-directory: src
     
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
       id: version2
       uses: ashley-taylor/read-json-property-action@v1.0
       with:
-        path: src/version.json
+        path: version.json
         property: version
     - run: echo ${{steps.version2.outputs.value}}
     - name: Get version
