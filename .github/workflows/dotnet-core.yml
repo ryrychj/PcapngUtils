@@ -40,6 +40,8 @@ jobs:
     ## Publish
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
+      env:
+        NUGET_KEY: ${{secrets.NUGET_KEY}}
       with:
         PROJECT_FILE_PATH: src/PcapngUtils/PcapngUtils.csproj
         # NuGet package id, used for version detection & defaults to project name
