@@ -73,7 +73,7 @@ namespace Haukcode.PcapngUtils.PcapNG.CommonTypes
 
         public byte[] ConvertToByte(bool reverseByteOrder)
         {
-            long timestamp = Seconds * 1000000 + Microseconds;
+            long timestamp = ((long)Seconds * 1000000) + Microseconds;
             uint timestampHigh = (uint)(timestamp / 4294967296);
             uint timestampLow = (uint)(timestamp % 4294967296);
 
