@@ -39,4 +39,4 @@ jobs:
 
     ## Publish
     - name: Publish NuGet
-      run: dotnet nuget push src/PcapngUtils/bin/Release/*.nupkg --skip-duplicate --api-key ${{ secrets.NUGET_KEY }}
+      run: dotnet nuget push src/PcapngUtils/bin/Release/*.nupkg --skip-duplicate --source https://api.nuget.org --api-key ${{ secrets.NUGET_KEY }}
