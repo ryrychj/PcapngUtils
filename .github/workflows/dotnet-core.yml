@@ -25,7 +25,7 @@ jobs:
       uses: Rishabh510/Path-lister-action@1.0
       with:
         path: .
-        type: '*.*'
+        type: ''
     - name: Output results
       run: |
           echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
