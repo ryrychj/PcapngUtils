@@ -12,41 +12,20 @@ defaults:
     
 jobs:
   build:
-
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
-    - run: pwd
-    - run: ls ${{env.GITHUB_WORKSPACE}}
-      
-    - name: Path lister action
-      id: pl
-      uses: Rishabh510/Path-lister-action@1.0
-      with:
-        path: .
-        type: ''
-    - name: Output results
-      run: |
-          echo "Found ${{ steps.pl.outputs.path_count }} file(s) with this extension:"
-          for i in ${{ steps.pl.outputs.paths }}; do
-          echo $i
-          done
-          
-    - name: read JSON property
-      id: version2
-      uses: ashley-taylor/read-json-property-action@v1.0
-      with:
-        path: src/version.json
-        property: version
-    - run: echo ${{steps.version2.outputs.value}}
+    - uses: nelonoel/branch-name@v1.0.1
+
     - name: Get version
       id: version
       uses: notiz-dev/github-action-json-property@release
-      with: 
+      with:
         path: src/version.json
         prop_path: 'version'
     - run: echo ${{steps.version.outputs.prop}}
+    - run: echo Version is ${{steps.version.outputs.prop}}.${GITHUB_RUN_NUMBER}-${BRANCH_NAME}
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
