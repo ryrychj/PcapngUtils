@@ -139,7 +139,7 @@ namespace Haukcode.PcapngUtils.PcapNG.BlockTypes
                 {
                     int interfaceID = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
                     byte[] timestamp = binaryReader.ReadBytes(8);
-                    TimestampHelper timestampHelper = new TimestampHelper(timestamp, baseBlock.ReverseByteOrder);
+                    var timestampHelper = new TimestampHelper(timestamp, baseBlock.ReverseByteOrder);
                     int capturedLength = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
                     int packetLength = binaryReader.ReadInt32().ReverseByteOrder(baseBlock.ReverseByteOrder);
                     byte[] data = binaryReader.ReadBytes(capturedLength);
