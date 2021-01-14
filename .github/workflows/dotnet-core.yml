@@ -46,7 +46,7 @@ jobs:
         PROJECT_FILE_PATH: src/PcapngUtils/PcapngUtils.csproj
         # NuGet package id, used for version detection & defaults to project name
         PACKAGE_NAME: Haukcode.PcapngUtils
-        VERSION_STATIC: ${{version}}
+        VERSION_STATIC: ${{env.version}}
         # Flag to toggle git tagging, enabled by default
         TAG_COMMIT: true
         # Flag to toggle pushing symbols along with nuget package to the server, disabled by default
